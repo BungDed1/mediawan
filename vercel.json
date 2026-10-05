@@ -1,9 +1,10 @@
 {
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/pages/:path*", "destination": "/pages/:path*" },
-    { "source": "/admin/:path*", "destination": "/admin/:path*" },
+    { "source": "/dashboard", "destination": "/admin/dashboard.html" },
+    { "source": "/login", "destination": "/admin/index.html" },
+    { "source": "/admin", "destination": "/admin/index.html" },
     { "source": "/article/:slug", "destination": "/pages/article.html?slug=:slug" },
     { "source": "/category/:slug", "destination": "/pages/category.html?slug=:slug" },
     { "source": "/search", "destination": "/pages/search.html" },
