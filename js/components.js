@@ -1,60 +1,45 @@
 /* =====================================================================
-   MEDIAWAN - COMPONENTS
-   Komponen reusable: header, footer, sidebar mobile, kartu artikel,
-   skeleton loader, empty/error state, badge, dsb.
-   Semua halaman publik memakai renderHeader() dan renderFooter().
+   MEDIAWAN - COMPONENTS (v3)
    ===================================================================== */
 
-/* -------------------- MENU -------------------- */
-
 const MENU_ITEMS = [
-  { label: "Beranda",   href: "index.html",           slug: "beranda"   },
-  { label: "Fakta",     href: "pages/category.html?slug=fakta",     slug: "fakta"     },
-  { label: "Berita",    href: "pages/category.html?slug=berita",    slug: "berita"    },
-  { label: "Teknologi", href: "pages/category.html?slug=teknologi", slug: "teknologi" },
-  { label: "Hiburan",   href: "pages/category.html?slug=hiburan",   slug: "hiburan"   },
-  { label: "Olahraga",  href: "pages/category.html?slug=olahraga",  slug: "olahraga"  },
-  { label: "Tentang",   href: "pages/about.html",     slug: "tentang"   },
+  { label: "Beranda",   href: "index.html",                          slug: "beranda"   },
+  { label: "Fakta",     href: "pages/category.html?slug=fakta",      slug: "fakta"     },
+  { label: "Berita",    href: "pages/category.html?slug=berita",     slug: "berita"    },
+  { label: "Teknologi", href: "pages/category.html?slug=teknologi",  slug: "teknologi" },
+  { label: "Hiburan",   href: "pages/category.html?slug=hiburan",    slug: "hiburan"   },
+  { label: "Olahraga",  href: "pages/category.html?slug=olahraga",   slug: "olahraga"  },
+  { label: "Tentang",   href: "pages/about.html",                    slug: "tentang"   },
 ];
 
-/**
- * Deteksi apakah kita sedang di dalam folder /pages/ atau /admin/.
- * Dipakai untuk menyesuaikan prefix link relatif.
- */
 function getPathPrefix() {
   const path = window.location.pathname;
   if (path.includes("/pages/") || path.includes("/admin/")) return "../";
   return "";
 }
 
-/* -------------------- LOGO -------------------- */
+const ICON_SEARCH = `
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="11" cy="11" r="7"></circle>
+    <line x1="16.5" y1="16.5" x2="21" y2="21"></line>
+  </svg>
+`;
 
-/**
- * Logo "mediawan." berbasis HTML+CSS, bukan gambar.
- * "media" weight normal, "wan" weight BOLD, diakhiri titik.
- */
+const SOCIAL_ICONS = {
+  whatsapp: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.7 14.1c-.2.6-1.2 1.2-1.7 1.2-.4 0-1 .1-3.3-.9-2.8-1.2-4.6-4-4.7-4.2-.1-.2-1.1-1.4-1.1-2.7 0-1.3.7-1.9.9-2.2.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2 0 .4-.1.5l-.4.5c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.3 2.4 1.5.3.1.5.1.7-.1l.8-1c.2-.3.4-.2.6-.1l1.9.9c.3.2.5.2.6.3.1.2.1.7-.1 1.4Z"/></svg>`,
+  instagram:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>`,
+  x:        `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.6l-5.2-6.8L5.2 22H2l7.3-8.3L1.7 2h6.8l4.7 6.2L18.9 2Zm-1.1 18h1.7L6.3 3.8H4.5L17.8 20Z"/></svg>`,
+  facebook: `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 22v-9h3l.5-3.5h-3.5V7.3c0-1 .3-1.8 1.9-1.8H17V2.4c-.3 0-1.4-.1-2.7-.1-2.7 0-4.5 1.6-4.5 4.6v2.6H7V13h2.8v9h3.7Z"/></svg>`,
+  youtube:  `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12s0-3.3-.4-4.9c-.2-.9-.9-1.5-1.7-1.7C18.3 5 12 5 12 5s-6.3 0-7.9.4c-.9.2-1.5.9-1.7 1.7C2 8.7 2 12 2 12s0 3.3.4 4.9c.2.9.9 1.5 1.7 1.7C5.7 19 12 19 12 19s6.3 0 7.9-.4c.9-.2 1.5-.9 1.7-1.7.4-1.6.4-4.9.4-4.9ZM10 15V9l5.2 3L10 15Z"/></svg>`,
+};
+
 function logoTemplate({ size = "", light = false, href = null } = {}) {
-  const cls = [
-    "mw-logo",
-    size ? `mw-logo--${size}` : "",
-    light ? "mw-logo--light" : "",
-  ].filter(Boolean).join(" ");
-
+  const cls = ["mw-logo", size ? `mw-logo--${size}` : "", light ? "mw-logo--light" : ""].filter(Boolean).join(" ");
   const inner = `<span class="mw-logo__media">media</span><span class="mw-logo__wan">wan</span><span class="mw-logo__dot">.</span>`;
-
-  if (href !== null) {
-    return `<a href="${href}" class="${cls}" aria-label="Mediawan - Beranda">${inner}</a>`;
-  }
+  if (href !== null) return `<a href="${href}" class="${cls}" aria-label="Mediawan - Beranda">${inner}</a>`;
   return `<span class="${cls}">${inner}</span>`;
 }
 
-/* -------------------- HEADER -------------------- */
-
-/**
- * Render header ke elemen dengan id "mw-header".
- * @param {Object} opts
- * @param {string} opts.active - slug menu yang sedang aktif (mis. "berita").
- */
 function renderHeader({ active = "" } = {}) {
   const mount = document.getElementById("mw-header");
   if (!mount) return;
@@ -81,36 +66,25 @@ function renderHeader({ active = "" } = {}) {
                 aria-label="Buka menu" aria-controls="mw-sidebar" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
-
         <div class="mw-header__logo">${logoTemplate({ href: homeHref })}</div>
-
-        <nav class="mw-header__nav" aria-label="Menu utama">
-          ${navLinks}
-        </nav>
-
+        <nav class="mw-header__nav" aria-label="Menu utama">${navLinks}</nav>
         <form class="mw-header__search mw-search-mini" id="mw-search-form" role="search">
           <label class="mw-visually-hidden" for="mw-search-input">Cari artikel</label>
-          <input id="mw-search-input" type="search" name="q"
-                 placeholder="Cari berita…" autocomplete="off">
-          <button type="submit" aria-label="Cari">🔍</button>
+          <input id="mw-search-input" type="search" name="q" placeholder="Cari berita…" autocomplete="off">
+          <button type="submit" aria-label="Cari">${ICON_SEARCH}</button>
         </form>
       </div>
     </header>
-
-    <!-- Sidebar mobile -->
     <aside class="mw-sidebar" id="mw-sidebar" aria-hidden="true">
       <div class="mw-sidebar__head">
         ${logoTemplate({ size: "sm", href: homeHref })}
         <button class="mw-sidebar__close" id="mw-sidebar-close" aria-label="Tutup menu">×</button>
       </div>
-      <nav class="mw-sidebar__nav" aria-label="Menu mobile">
-        ${sideLinks}
-      </nav>
+      <nav class="mw-sidebar__nav" aria-label="Menu mobile">${sideLinks}</nav>
       <form class="mw-search-mini" id="mw-search-form-mobile" role="search">
         <label class="mw-visually-hidden" for="mw-search-input-mobile">Cari artikel</label>
-        <input id="mw-search-input-mobile" type="search" name="q"
-               placeholder="Cari berita…" autocomplete="off">
-        <button type="submit" aria-label="Cari">🔍</button>
+        <input id="mw-search-input-mobile" type="search" name="q" placeholder="Cari berita…" autocomplete="off">
+        <button type="submit" aria-label="Cari">${ICON_SEARCH}</button>
       </form>
     </aside>
     <div class="mw-backdrop" id="mw-backdrop"></div>
@@ -119,7 +93,6 @@ function renderHeader({ active = "" } = {}) {
   bindHeaderEvents(prefix);
 }
 
-/** Pasang event untuk burger, sidebar close, backdrop, dan form search. */
 function bindHeaderEvents(prefix) {
   const burger     = document.getElementById("mw-burger");
   const sidebar    = document.getElementById("mw-sidebar");
@@ -146,18 +119,13 @@ function bindHeaderEvents(prefix) {
   burger?.addEventListener("click", openSidebar);
   closeBtn?.addEventListener("click", closeSidebar);
   backdrop?.addEventListener("click", closeSidebar);
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeSidebar(); });
 
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") closeSidebar();
-  });
-
-  // Submit pencarian -> ke pages/search.html
   const goSearch = (value) => {
     const q = String(value || "").trim();
     if (!q) return;
     window.location.href = `${prefix}pages/search.html?q=${encodeURIComponent(q)}`;
   };
-
   searchForm?.addEventListener("submit", (e) => {
     e.preventDefault();
     goSearch(searchForm.querySelector("input[name=q]")?.value);
@@ -168,14 +136,44 @@ function bindHeaderEvents(prefix) {
   });
 }
 
-/* -------------------- FOOTER -------------------- */
-
-/** Render footer ke elemen dengan id "mw-footer". */
-function renderFooter() {
+async function renderFooter() {
   const mount = document.getElementById("mw-footer");
   if (!mount) return;
 
   const prefix = getPathPrefix();
+  const defaults = {
+    footer_desc: "Mediawan adalah media berita & fakta independen. Kami menyajikan informasi yang terverifikasi, hangat, dan mudah dipahami.",
+    footer_copyright: "Dibuat dengan ❤ di Indonesia.",
+    social_whatsapp: "", social_instagram: "", social_x: "",
+    social_facebook: "", social_youtube: "",
+  };
+
+  let s = defaults;
+  try {
+    const map = await loadSettings();
+    s = { ...defaults, ...map };
+  } catch (err) {
+    console.warn("[footer] gagal load settings:", err);
+  }
+
+  const socialItems = [
+    { key: "whatsapp",  url: s.social_whatsapp,  label: "WhatsApp" },
+    { key: "instagram", url: s.social_instagram, label: "Instagram" },
+    { key: "x",         url: s.social_x,         label: "X" },
+    { key: "facebook",  url: s.social_facebook,  label: "Facebook" },
+    { key: "youtube",   url: s.social_youtube,   label: "YouTube" },
+  ].filter((x) => x.url && x.url.trim());
+
+  const socialHTML = socialItems.length
+    ? `<div class="mw-footer__social">
+         ${socialItems.map((x) => `
+           <a href="${escapeHtml(x.url)}" target="_blank" rel="noopener noreferrer"
+              aria-label="${escapeHtml(x.label)}" title="${escapeHtml(x.label)}">
+             ${SOCIAL_ICONS[x.key] || ""}
+           </a>
+         `).join("")}
+       </div>`
+    : "";
 
   mount.innerHTML = `
     <footer class="mw-footer">
@@ -183,12 +181,11 @@ function renderFooter() {
         <div class="mw-footer__grid">
           <div>
             ${logoTemplate({ light: true, size: "lg", href: `${prefix}index.html` })}
-            <p style="color:#b9b4ab; margin-top:12px; max-width:340px;">
-              Mediawan adalah media berita & fakta independen.
-              Kami menyajikan informasi yang terverifikasi, hangat, dan mudah dipahami.
+            <p style="color:#b9b4ab; margin-top:12px; max-width:360px; line-height:1.7;">
+              ${escapeHtml(s.footer_desc)}
             </p>
+            ${socialHTML}
           </div>
-
           <div>
             <h3 class="mw-footer__title">Kategori</h3>
             <ul class="mw-footer__list">
@@ -199,98 +196,28 @@ function renderFooter() {
               <li><a href="${prefix}pages/category.html?slug=olahraga">Olahraga</a></li>
             </ul>
           </div>
-
           <div>
             <h3 class="mw-footer__title">Mediawan</h3>
             <ul class="mw-footer__list">
               <li><a href="${prefix}pages/about.html">Tentang Kami</a></li>
               <li><a href="${prefix}pages/search.html">Pencarian</a></li>
-              <li><a href="${prefix}admin/index.html">Masuk Admin</a></li>
             </ul>
           </div>
-
-          <div>
-            <h3 class="mw-footer__title">Surat Kabar</h3>
-            <p style="color:#b9b4ab; font-size:14px; margin-bottom:12px;">
-              Dapatkan ringkasan berita terbaik setiap minggu.
-            </p>
-            <form class="mw-newsletter" id="mw-newsletter-form">
-              <label class="mw-visually-hidden" for="mw-newsletter-email">Email</label>
-              <input class="mw-input" id="mw-newsletter-email" type="email"
-                     name="email" placeholder="email@kamu.com" required>
-              <button class="mw-btn mw-btn--accent" type="submit">Langganan</button>
-            </form>
-          </div>
         </div>
-
         <div class="mw-footer__bottom">
           <span>© ${new Date().getFullYear()} Mediawan. Semua hak dilindungi.</span>
-          <span>Dibuat dengan ❤ di Indonesia.</span>
+          <span>${escapeHtml(s.footer_copyright)}</span>
         </div>
       </div>
     </footer>
   `;
-
-  bindNewsletter();
 }
 
-/** Handler form newsletter di footer. */
-function bindNewsletter() {
-  const form = document.getElementById("mw-newsletter-form");
-  if (!form) return;
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    const emailInput = form.querySelector('input[name=email]');
-    const email = String(emailInput.value || "").trim().toLowerCase();
-    const btn = form.querySelector("button[type=submit]");
-
-    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
-      showToast("Masukkan email yang valid.", "error");
-      return;
-    }
-
-    btn.disabled = true;
-    const originalLabel = btn.textContent;
-    btn.textContent = "Mengirim…";
-
-    try {
-      const { error } = await supabaseClient
-        .from(TABLES.subscribers)
-        .insert({ email });
-
-      if (error) throw error;
-
-      showToast("Terima kasih! Emailmu sudah terdaftar.", "success");
-      form.reset();
-    } catch (err) {
-      // Duplikat = sudah pernah daftar, tetap dianggap sukses dari sisi user
-      if (/duplicate key/i.test(err?.message || "")) {
-        showToast("Email ini sudah berlangganan.", "info");
-        form.reset();
-      } else {
-        showToast(friendlyError(err), "error");
-      }
-    } finally {
-      btn.disabled = false;
-      btn.textContent = originalLabel;
-    }
-  });
-}
-
-/* -------------------- KARTU ARTIKEL -------------------- */
-
-/**
- * Bangun HTML satu kartu artikel.
- * @param {Object} a - row artikel dari Supabase.
- * @param {Object} opts - { compact: boolean, prefix: string }
- */
 function articleCardHTML(a, { compact = false, prefix = "" } = {}) {
   const url = `${prefix}${articleUrl(a.slug)}`;
   const img = a.cover_image_url || `${prefix}${APP.defaultImage}`;
   const category = a.mw_categories?.name || "";
   const date = formatRelativeId(a.published_at || a.created_at);
-
   return `
     <article class="mw-card ${compact ? "mw-card--compact" : ""}">
       <a href="${url}" class="mw-card__media" aria-label="${escapeHtml(a.title)}">
@@ -301,16 +228,12 @@ function articleCardHTML(a, { compact = false, prefix = "" } = {}) {
           ${category ? `<span class="mw-badge">${escapeHtml(category)}</span>` : ""}
           <span>${escapeHtml(date)}</span>
         </div>
-        <h3 class="mw-card__title">
-          <a href="${url}">${escapeHtml(a.title)}</a>
-        </h3>
+        <h3 class="mw-card__title"><a href="${url}">${escapeHtml(a.title)}</a></h3>
         ${a.excerpt ? `<p class="mw-card__excerpt">${escapeHtml(a.excerpt)}</p>` : ""}
       </div>
     </article>
   `;
 }
-
-/* -------------------- LIST ITEM (Terpopuler) -------------------- */
 
 function popularItemHTML(a, index, prefix = "") {
   const url = `${prefix}${articleUrl(a.slug)}`;
@@ -328,54 +251,30 @@ function popularItemHTML(a, index, prefix = "") {
   `;
 }
 
-/* -------------------- SKELETON -------------------- */
-
 function skeletonCards(count = 6) {
-  return Array.from({ length: count })
-    .map(() => `<div class="mw-skeleton mw-skeleton--card"></div>`)
-    .join("");
+  return Array.from({ length: count }).map(() => `<div class="mw-skeleton mw-skeleton--card"></div>`).join("");
 }
 
 function skeletonList(count = 5) {
-  return Array.from({ length: count })
-    .map(() => `
-      <div style="display:flex; gap:12px; align-items:flex-start;">
-        <div class="mw-skeleton" style="width:32px;height:32px;border-radius:8px;"></div>
-        <div style="flex:1;">
-          <div class="mw-skeleton mw-skeleton--title"></div>
-          <div class="mw-skeleton mw-skeleton--text"></div>
-        </div>
+  return Array.from({ length: count }).map(() => `
+    <div style="display:flex; gap:12px; align-items:flex-start;">
+      <div class="mw-skeleton" style="width:32px;height:32px;border-radius:8px;"></div>
+      <div style="flex:1;">
+        <div class="mw-skeleton mw-skeleton--title"></div>
+        <div class="mw-skeleton mw-skeleton--text"></div>
       </div>
-    `)
-    .join("");
+    </div>
+  `).join("");
 }
 
-/* -------------------- EMPTY / ERROR STATE -------------------- */
-
 function emptyStateHTML(title = "Belum ada artikel", message = "Nantikan konten terbaru dari Mediawan.") {
-  return `
-    <div class="mw-state">
-      <div class="mw-state__title">${escapeHtml(title)}</div>
-      <p>${escapeHtml(message)}</p>
-    </div>
-  `;
+  return `<div class="mw-state"><div class="mw-state__title">${escapeHtml(title)}</div><p>${escapeHtml(message)}</p></div>`;
 }
 
 function errorStateHTML(message = "Gagal memuat data. Coba lagi sebentar lagi.") {
-  return `
-    <div class="mw-state mw-state--error">
-      <div class="mw-state__title">Terjadi kesalahan</div>
-      <p>${escapeHtml(message)}</p>
-    </div>
-  `;
+  return `<div class="mw-state mw-state--error"><div class="mw-state__title">Terjadi kesalahan</div><p>${escapeHtml(message)}</p></div>`;
 }
 
-/* -------------------- INIT -------------------- */
-
-/**
- * Panggil sekali di setiap halaman publik.
- * @param {Object} opts - { active: "berita", footer: true }
- */
 function initPageChrome({ active = "", footer = true } = {}) {
   renderHeader({ active });
   if (footer) renderFooter();

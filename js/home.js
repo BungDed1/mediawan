@@ -1,7 +1,5 @@
 /* =====================================================================
    MEDIAWAN - HOME
-   Logika halaman beranda: hero unggulan, terbaru, fakta cepat (carousel),
-   terpopuler, dan form newsletter.
    ===================================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -12,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   loadPopular();
 });
 
-/* -------------------- HERO: 1 artikel unggulan -------------------- */
+/* -------------------- HERO -------------------- */
 
 async function loadHero() {
   const mount = document.getElementById("mw-hero");
@@ -34,7 +32,6 @@ async function loadHero() {
 
     let article = data?.[0];
 
-    // Fallback: kalau tidak ada yang unggulan, ambil artikel terbaru
     if (!article) {
       const fallback = await supabaseClient
         .from(TABLES.articles)
@@ -79,7 +76,7 @@ function renderHero(a) {
     <div>
       ${category
         ? `<a href="pages/category.html?slug=${encodeURIComponent(categorySlug)}"
-              class="mw-badge" style="margin-bottom:12px; display:inline-block;">
+              class="mw-badge" style="margin-bottom:16px; display:inline-block;">
              ${escapeHtml(category)}
            </a>`
         : ""}
@@ -87,7 +84,7 @@ function renderHero(a) {
         <a href="${url}">${escapeHtml(a.title)}</a>
       </h1>
       ${a.excerpt ? `<p class="mw-hero__excerpt">${escapeHtml(a.excerpt)}</p>` : ""}
-      <div class="mw-card__meta" style="margin-top:16px;">
+      <div class="mw-card__meta" style="margin-top:20px;">
         <span>${escapeHtml(date)}</span>
       </div>
     </div>
@@ -129,7 +126,7 @@ async function loadLatest() {
   }
 }
 
-/* -------------------- FAKTA CEPAT (carousel) -------------------- */
+/* -------------------- FAKTA CEPAT -------------------- */
 
 async function loadFacts() {
   const mount = document.getElementById("mw-facts");
@@ -138,7 +135,6 @@ async function loadFacts() {
   mount.innerHTML = skeletonCards(4);
 
   try {
-    // Ambil semua artikel dari kategori "fakta"
     const { data: cat, error: catErr } = await supabaseClient
       .from(TABLES.categories)
       .select("id, name, slug")
@@ -163,7 +159,6 @@ async function loadFacts() {
     if (error) throw error;
 
     if (!data || data.length === 0) {
-      // Fallback: pakai artikel terbaru apa pun kalau kategori fakta kosong
       const fallback = await supabaseClient
         .from(TABLES.articles)
         .select(`
@@ -195,7 +190,7 @@ async function loadFacts() {
   }
 }
 
-/* -------------------- TERPOPULER (5 berdasarkan views) -------------------- */
+/* -------------------- TERPOPULER -------------------- */
 
 async function loadPopular() {
   const mount = document.getElementById("mw-popular");

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- SEO dasar (akan diisi/diubah oleh article.js) -->
+  <!-- SEO dasar (diisi/diubah oleh article.js) -->
   <title>Memuat artikel… — Mediawan</title>
   <meta name="description" content="Artikel Mediawan." id="mw-meta-description">
   <meta name="theme-color" content="#0d0d0d">
@@ -24,7 +24,6 @@
 
   <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
 
-  <!-- CSS -->
   <link rel="stylesheet" href="../css/variables.css">
   <link rel="stylesheet" href="../css/base.css">
   <link rel="stylesheet" href="../css/layout.css">
@@ -35,9 +34,10 @@
   <div id="mw-header"></div>
 
   <main id="mw-main">
-    <!-- Artikel -->
+
+    <!-- Artikel utama -->
     <article class="mw-container mw-article" id="mw-article" aria-live="polite">
-      <!-- Skeleton awal -->
+      <!-- Skeleton awal (ditimpa oleh article.js setelah data dimuat) -->
       <div class="mw-skeleton mw-skeleton--title" style="width:30%"></div>
       <div class="mw-skeleton mw-skeleton--title" style="width:90%;height:42px"></div>
       <div class="mw-skeleton mw-skeleton--title" style="width:70%;height:42px"></div>
@@ -56,6 +56,7 @@
       </div>
       <div id="mw-related" class="mw-grid mw-grid--3"></div>
     </section>
+
   </main>
 
   <div id="mw-footer"></div>
@@ -66,5 +67,6 @@
   <script src="../js/utils.js"></script>
   <script src="../js/components.js"></script>
   <script src="../js/article.js"></script>
+  <script src="js/settings-store.js"></script>
 </body>
 </html>

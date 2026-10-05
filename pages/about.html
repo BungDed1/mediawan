@@ -5,14 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Tentang Mediawan — Media Berita & Fakta Indonesia</title>
-  <meta name="description"
-        content="Mediawan adalah media berita & fakta independen berbahasa Indonesia. Pelajari misi, nilai, dan cara kami bekerja.">
+  <meta name="description" content="Tentang Mediawan, media berita & fakta independen.">
   <meta name="theme-color" content="#0d0d0d">
-
-  <meta property="og:type"        content="website">
-  <meta property="og:site_name"   content="Mediawan">
-  <meta property="og:title"       content="Tentang Mediawan">
-  <meta property="og:description" content="Media berita & fakta independen berbahasa Indonesia.">
 
   <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
 
@@ -23,22 +17,27 @@
 
   <style>
     .mw-about-hero {
-      padding: var(--mw-space-8) 0 var(--mw-space-6);
+      padding: var(--mw-space-6) 0 var(--mw-space-3);
       max-width: 780px;
     }
     .mw-about-hero h1 {
       font-size: var(--mw-fs-3xl);
       letter-spacing: -0.02em;
+      margin: var(--mw-space-4) 0 var(--mw-space-3);
+      line-height: 1.15;
     }
     .mw-about-hero p {
       font-size: var(--mw-fs-md);
       color: var(--mw-text-soft);
+      line-height: 1.7;
+      margin: 0;
+      white-space: pre-line;
     }
+
     .mw-values {
       display: grid;
       gap: var(--mw-space-5);
       grid-template-columns: 1fr;
-      margin-top: var(--mw-space-6);
     }
     @media (min-width: 700px) {
       .mw-values { grid-template-columns: repeat(3, 1fr); }
@@ -49,79 +48,64 @@
       border-radius: var(--mw-radius);
       background: var(--mw-bg-soft);
     }
-    .mw-value h3 { margin-bottom: 8px; }
-    .mw-value p { margin: 0; font-size: var(--mw-fs-sm); }
+    .mw-value h3 { margin: 0 0 var(--mw-space-2); font-size: var(--mw-fs-md); }
+    .mw-value p { margin: 0; font-size: var(--mw-fs-sm); line-height: 1.65; color: var(--mw-text-soft); }
+
+    .mw-about-list {
+      max-width: 720px;
+      color: var(--mw-text-soft);
+      line-height: 1.9;
+      padding-left: var(--mw-space-5);
+      margin: 0;
+    }
+    .mw-about-list li { margin-bottom: var(--mw-space-2); }
   </style>
 </head>
 <body>
 
   <div id="mw-header"></div>
 
-  <main id="mw-main">
-    <section class="mw-container mw-about-hero">
+  <main id="mw-main" class="mw-container">
+
+    <header class="mw-about-hero">
       <nav class="mw-breadcrumb" aria-label="Breadcrumb">
         <a href="../index.html">Beranda</a>
         <span>›</span>
         <span>Tentang</span>
       </nav>
       <span class="mw-badge">Tentang Kami</span>
-      <h1 style="margin-top:12px;">
-        Media yang mengutamakan fakta, bukan sensasi.
-      </h1>
-      <p>
-        Mediawan adalah media berita & fakta independen berbahasa Indonesia.
-        Kami percaya bahwa informasi yang baik harus jernih, hangat, dan bisa
-        dipertanggungjawabkan. Setiap artikel yang kami terbitkan selalu
-        menyertakan sumber yang jelas.
-      </p>
-    </section>
+      <h1 id="about-title">Memuat…</h1>
+      <p id="about-intro"></p>
+    </header>
 
-    <section class="mw-container mw-section" aria-labelledby="mw-values-title">
-      <h2 id="mw-values-title" class="mw-section__title">Nilai yang kami pegang</h2>
-
-      <div class="mw-values">
-        <div class="mw-value">
-          <h3>Akurasi</h3>
-          <p>
-            Setiap fakta diverifikasi ke sumber primer. Bila ada koreksi,
-            kami sampaikan secara terbuka.
-          </p>
-        </div>
-        <div class="mw-value">
-          <h3>Independen</h3>
-          <p>
-            Kami tidak terikat kepentingan politik atau komersial mana pun.
-            Pembaca adalah prioritas utama.
-          </p>
-        </div>
-        <div class="mw-value">
-          <h3>Ramah</h3>
-          <p>
-            Berita boleh serius, tapi penyampaiannya tetap hangat dan mudah
-            dipahami semua kalangan.
-          </p>
-        </div>
+    <section class="mw-section" aria-labelledby="mw-values-title">
+      <div class="mw-section__head">
+        <h2 id="mw-values-title" class="mw-section__title">Nilai yang kami pegang</h2>
       </div>
+      <div class="mw-values" id="about-values"></div>
     </section>
 
-    <section class="mw-container mw-section" aria-labelledby="mw-how-title">
-      <h2 id="mw-how-title" class="mw-section__title">Bagaimana kami bekerja</h2>
-      <ol style="max-width:720px; color:var(--mw-text-soft); line-height:1.9;">
-        <li><strong>Riset.</strong> Tim redaksi mengumpulkan data dari sumber resmi, arsip, dan wawancara.</li>
-        <li><strong>Verifikasi.</strong> Setiap klaim dicocokkan dengan minimal dua sumber independen.</li>
-        <li><strong>Penulisan.</strong> Disusun dengan bahasa yang jernih, singkat, dan tidak memihak.</li>
-        <li><strong>Publikasi.</strong> Artikel diterbitkan bersama nama sumber agar pembaca bisa menelusuri sendiri.</li>
-      </ol>
+    <section class="mw-section" aria-labelledby="mw-team-title">
+      <div class="mw-section__head">
+        <h2 id="mw-team-title" class="mw-section__title">Tim di balik Mediawan</h2>
+      </div>
+      <div class="mw-team" id="about-team"></div>
     </section>
 
-    <section class="mw-container mw-section" aria-labelledby="mw-contact-title">
-      <h2 id="mw-contact-title" class="mw-section__title">Kontak</h2>
-      <p style="max-width:720px;">
-        Punya tips, koreksi, atau ingin bekerja sama? Kirim email ke
-        <a href="mailto:redaksi@mediawan.id" class="mw-text-accent">redaksi@mediawan.id</a>.
-        Kami membaca setiap pesan.
-      </p>
+    <section class="mw-section" aria-labelledby="mw-how-title">
+      <div class="mw-section__head">
+        <h2 id="mw-how-title" class="mw-section__title">Bagaimana kami bekerja</h2>
+      </div>
+      <ol class="mw-about-list" id="about-how"></ol>
     </section>
+
+    <section class="mw-section" aria-labelledby="mw-contact-title">
+      <div class="mw-section__head">
+        <h2 id="mw-contact-title" class="mw-section__title">Kontak</h2>
+      </div>
+      <p id="about-contact" style="max-width:720px; line-height:1.7; color:var(--mw-text-soft); white-space:pre-line;"></p>
+    </section>
+
   </main>
 
   <div id="mw-footer"></div>
@@ -130,11 +114,65 @@
   <script src="../js/config.js"></script>
   <script src="../js/supabase-client.js"></script>
   <script src="../js/utils.js"></script>
+  <script src="../js/settings-store.js"></script>
   <script src="../js/components.js"></script>
+  <script src="js/settings-store.js"></script>
   <script>
-    // Halaman statis: cukup render header & footer
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", async () => {
       initPageChrome({ active: "tentang", footer: true });
+
+      const s = await loadSettings();
+      const set = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = val ?? "";
+      };
+
+      set("about-title",   s.about_title || "Media yang mengutamakan fakta, bukan sensasi.");
+      set("about-intro",   s.about_intro || "");
+
+      // Nilai
+      const values = [1, 2, 3].map((i) => ({
+        t: s[`about_value_${i}_t`] || "",
+        d: s[`about_value_${i}_d`] || "",
+      })).filter((v) => v.t);
+
+      document.getElementById("about-values").innerHTML = values.length
+        ? values.map((v) => `
+            <div class="mw-value">
+              <h3>${escapeHtml(v.t)}</h3>
+              <p>${escapeHtml(v.d)}</p>
+            </div>
+          `).join("")
+        : `<p class="mw-text-muted">Belum ada nilai yang ditambahkan.</p>`;
+
+      // Tim
+      const team = [
+        { name: s.about_founder_name, role: s.about_founder_role, bio: s.about_founder_bio, photo: s.about_founder_photo },
+        { name: s.about_team_name,    role: s.about_team_role,    bio: s.about_team_bio,    photo: s.about_team_photo },
+      ].filter((x) => x.name);
+
+      document.getElementById("about-team").innerHTML = team.map((t) => `
+        <div class="mw-team__card">
+          <div class="mw-team__photo">
+            ${t.photo
+              ? `<img src="${escapeHtml(t.photo)}" alt="Foto ${escapeHtml(t.name)}" loading="lazy">`
+              : ""}
+          </div>
+          <div class="mw-team__name">${escapeHtml(t.name)}</div>
+          <div class="mw-team__role">${escapeHtml(t.role)}</div>
+          <p class="mw-team__bio">${escapeHtml(t.bio)}</p>
+        </div>
+      `).join("");
+
+      // Cara kerja
+      const hows = [s.about_how_1, s.about_how_2, s.about_how_3, s.about_how_4].filter(Boolean);
+      document.getElementById("about-how").innerHTML = hows.map((h) => {
+        const [first, ...rest] = String(h).split(".");
+        const rest_ = rest.join(".").trim();
+        return `<li><strong>${escapeHtml(first)}.</strong> ${escapeHtml(rest_)}</li>`;
+      }).join("");
+
+      set("about-contact", s.about_contact || "");
     });
   </script>
 </body>

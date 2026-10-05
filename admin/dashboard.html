@@ -26,7 +26,7 @@
         <span class="mw-logo mw-logo--sm">
           <span class="mw-logo__media">media</span><span class="mw-logo__wan">wan</span><span class="mw-logo__dot">.</span>
         </span>
-        <span class="mw-badge mw-badge--muted">Admin</span>
+        <span class="mw-admin-chip">Admin</span>
       </div>
       <div class="mw-admin__header-right">
         <span class="mw-admin__user" id="mw-admin-email">…</span>
@@ -38,21 +38,38 @@
     <nav class="mw-admin__tabs-mobile" aria-label="Navigasi admin (mobile)">
       <button data-tab="articles" class="is-active">Artikel</button>
       <button data-tab="categories">Kategori</button>
+      <button data-tab="about">Tentang</button>
+      <button data-tab="settings">Pengaturan</button>
     </nav>
 
     <div class="mw-admin__body">
+
       <!-- SIDEBAR -->
       <aside class="mw-admin__sidebar">
         <nav class="mw-admin__nav" aria-label="Navigasi admin">
-          <button data-tab="articles" class="is-active">📝 Artikel</button>
-          <button data-tab="categories">🏷️ Kategori</button>
+          <button data-tab="articles" class="is-active">
+            <svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-6-6Z"/><path d="M14 3v6h6"/><path d="M8 13h8M8 17h5"/></svg>
+            Artikel
+          </button>
+          <button data-tab="categories">
+            <svg viewBox="0 0 24 24"><path d="M20.6 13.4 13.4 20.6a2 2 0 0 1-2.8 0l-7.2-7.2A2 2 0 0 1 3 12V5a2 2 0 0 1 2-2h7a2 2 0 0 1 1.4.6l7.2 7.2a2 2 0 0 1 0 2.6Z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>
+            Kategori
+          </button>
+          <button data-tab="about">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v5h1"/></svg>
+            Tentang
+          </button>
+          <button data-tab="settings">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 0 1-4 0v-.1A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 0 1 0-4h.1A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 0 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 0 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+            Pengaturan
+          </button>
         </nav>
       </aside>
 
       <!-- CONTENT -->
       <section class="mw-admin__content">
 
-        <!-- TAB: ARTIKEL -->
+        <!-- TAB ARTIKEL -->
         <div id="mw-tab-articles">
           <div class="mw-panel">
             <div class="mw-panel__title">
@@ -66,7 +83,7 @@
           </div>
         </div>
 
-        <!-- TAB: KATEGORI -->
+        <!-- TAB KATEGORI -->
         <div id="mw-tab-categories" hidden>
           <div class="mw-panel">
             <div class="mw-panel__title">
@@ -80,11 +97,196 @@
           </div>
         </div>
 
+        <!-- TAB TENTANG -->
+        <div id="mw-tab-about" hidden>
+          <div class="mw-panel">
+            <div class="mw-panel__title">
+              <span>Halaman Tentang</span>
+            </div>
+
+            <form id="mw-about-form">
+              <div class="mw-form-grid">
+                <div class="mw-field mw-field--full">
+                  <label for="ab-title">Judul Hero</label>
+                  <input class="mw-input" id="ab-title" name="about_title">
+                </div>
+                <div class="mw-field mw-field--full">
+                  <label for="ab-intro">Paragraf Pembuka</label>
+                  <textarea class="mw-textarea" id="ab-intro" name="about_intro" style="min-height:100px;"></textarea>
+                </div>
+
+                <div class="mw-field mw-field--full" style="border-top:1px solid #f0ece6; padding-top:16px;">
+                  <strong>Nilai 1</strong>
+                </div>
+                <div class="mw-field">
+                  <label for="v1t">Judul</label>
+                  <input class="mw-input" id="v1t" name="about_value_1_t">
+                </div>
+                <div class="mw-field">
+                  <label for="v1d">Deskripsi</label>
+                  <input class="mw-input" id="v1d" name="about_value_1_d">
+                </div>
+
+                <div class="mw-field mw-field--full"><strong>Nilai 2</strong></div>
+                <div class="mw-field">
+                  <label for="v2t">Judul</label>
+                  <input class="mw-input" id="v2t" name="about_value_2_t">
+                </div>
+                <div class="mw-field">
+                  <label for="v2d">Deskripsi</label>
+                  <input class="mw-input" id="v2d" name="about_value_2_d">
+                </div>
+
+                <div class="mw-field mw-field--full"><strong>Nilai 3</strong></div>
+                <div class="mw-field">
+                  <label for="v3t">Judul</label>
+                  <input class="mw-input" id="v3t" name="about_value_3_t">
+                </div>
+                <div class="mw-field">
+                  <label for="v3d">Deskripsi</label>
+                  <input class="mw-input" id="v3d" name="about_value_3_d">
+                </div>
+
+                <div class="mw-field mw-field--full" style="border-top:1px solid #f0ece6; padding-top:16px;">
+                  <strong>Founder</strong>
+                </div>
+                <div class="mw-field">
+                  <label for="fn">Nama</label>
+                  <input class="mw-input" id="fn" name="about_founder_name">
+                </div>
+                <div class="mw-field">
+                  <label for="fr">Jabatan</label>
+                  <input class="mw-input" id="fr" name="about_founder_role">
+                </div>
+                <div class="mw-field mw-field--full">
+                  <label for="fb">Bio</label>
+                  <textarea class="mw-textarea" id="fb" name="about_founder_bio" style="min-height:80px;"></textarea>
+                </div>
+                <div class="mw-field mw-field--full">
+                  <label for="fp">Foto Founder</label>
+                  <input class="mw-input" id="fp" name="about_founder_photo_file" type="file" accept="image/*">
+                  <span class="mw-hint">JPG/PNG/WebP, maks 3MB.</span>
+                  <div class="mw-image-preview" id="mw-founder-preview">
+                    <img alt="Pratinjau foto founder">
+                  </div>
+                </div>
+
+                <div class="mw-field mw-field--full" style="border-top:1px solid #f0ece6; padding-top:16px;">
+                  <strong>Tim Riset</strong>
+                </div>
+                <div class="mw-field">
+                  <label for="tn">Nama</label>
+                  <input class="mw-input" id="tn" name="about_team_name">
+                </div>
+                <div class="mw-field">
+                  <label for="tr">Jabatan</label>
+                  <input class="mw-input" id="tr" name="about_team_role">
+                </div>
+                <div class="mw-field mw-field--full">
+                  <label for="tb">Bio</label>
+                  <textarea class="mw-textarea" id="tb" name="about_team_bio" style="min-height:80px;"></textarea>
+                </div>
+                <div class="mw-field mw-field--full">
+                  <label for="tp">Foto Tim</label>
+                  <input class="mw-input" id="tp" name="about_team_photo_file" type="file" accept="image/*">
+                  <span class="mw-hint">JPG/PNG/WebP, maks 3MB.</span>
+                  <div class="mw-image-preview" id="mw-team-preview">
+                    <img alt="Pratinjau foto tim">
+                  </div>
+                </div>
+
+                <div class="mw-field mw-field--full" style="border-top:1px solid #f0ece6; padding-top:16px;">
+                  <strong>Cara Kerja</strong>
+                </div>
+                <div class="mw-field mw-field--full">
+                  <label for="hw1">Poin 1</label>
+                  <input class="mw-input" id="hw1" name="about_how_1">
+                </div>
+                <div class="mw-field mw-field--full">
+                  <label for="hw2">Poin 2</label>
+                  <input class="mw-input" id="hw2" name="about_how_2">
+                </div>
+                <div class="mw-field mw-field--full">
+                  <label for="hw3">Poin 3</label>
+                  <input class="mw-input" id="hw3" name="about_how_3">
+                </div>
+                <div class="mw-field mw-field--full">
+                  <label for="hw4">Poin 4</label>
+                  <input class="mw-input" id="hw4" name="about_how_4">
+                </div>
+
+                <div class="mw-field mw-field--full" style="border-top:1px solid #f0ece6; padding-top:16px;">
+                  <strong>Kontak</strong>
+                </div>
+                <div class="mw-field mw-field--full">
+                  <label for="ct">Teks Kontak</label>
+                  <textarea class="mw-textarea" id="ct" name="about_contact" style="min-height:70px;"></textarea>
+                </div>
+              </div>
+
+              <div class="mw-modal__foot">
+                <button type="submit" class="mw-btn mw-btn--accent" id="mw-about-save">Simpan Perubahan</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- TAB PENGATURAN -->
+        <div id="mw-tab-settings" hidden>
+          <div class="mw-panel">
+            <div class="mw-panel__title">
+              <span>Pengaturan Situs</span>
+            </div>
+
+            <form id="mw-settings-form">
+              <div class="mw-form-grid">
+                <div class="mw-field mw-field--full">
+                  <label for="fd">Deskripsi di Footer</label>
+                  <textarea class="mw-textarea" id="fd" name="footer_desc" style="min-height:80px;"></textarea>
+                </div>
+                <div class="mw-field mw-field--full">
+                  <label for="fc">Teks Copyright</label>
+                  <input class="mw-input" id="fc" name="footer_copyright">
+                </div>
+
+                <div class="mw-field mw-field--full" style="border-top:1px solid #f0ece6; padding-top:16px;">
+                  <strong>Media Sosial</strong>
+                  <span class="mw-hint">Kosongkan kalau tidak dipakai.</span>
+                </div>
+                <div class="mw-field">
+                  <label for="sw">WhatsApp</label>
+                  <input class="mw-input" id="sw" name="social_whatsapp" placeholder="https://wa.me/628...">
+                </div>
+                <div class="mw-field">
+                  <label for="si">Instagram</label>
+                  <input class="mw-input" id="si" name="social_instagram" placeholder="https://instagram.com/...">
+                </div>
+                <div class="mw-field">
+                  <label for="sx">X / Twitter</label>
+                  <input class="mw-input" id="sx" name="social_x" placeholder="https://x.com/...">
+                </div>
+                <div class="mw-field">
+                  <label for="sf">Facebook</label>
+                  <input class="mw-input" id="sf" name="social_facebook" placeholder="https://facebook.com/...">
+                </div>
+                <div class="mw-field">
+                  <label for="sy">YouTube</label>
+                  <input class="mw-input" id="sy" name="social_youtube" placeholder="https://youtube.com/@...">
+                </div>
+              </div>
+
+              <div class="mw-modal__foot">
+                <button type="submit" class="mw-btn mw-btn--accent" id="mw-settings-save">Simpan Pengaturan</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
       </section>
     </div>
   </div>
 
-  <!-- ============ MODAL ARTIKEL ============ -->
+  <!-- MODAL ARTIKEL -->
   <div class="mw-modal" id="mw-article-modal" role="dialog" aria-modal="true"
        aria-labelledby="mw-article-modal-title">
     <div class="mw-modal__dialog">
@@ -121,36 +323,29 @@
 
           <div class="mw-field mw-field--full">
             <label for="f-excerpt">Ringkasan (excerpt)</label>
-            <textarea class="mw-textarea" id="f-excerpt" name="excerpt"
-                      style="min-height:80px;" maxlength="400"></textarea>
+            <textarea class="mw-textarea" id="f-excerpt" name="excerpt" style="min-height:80px;" maxlength="400"></textarea>
           </div>
 
           <div class="mw-field mw-field--full">
             <label for="f-content">Isi Artikel</label>
-            <textarea class="mw-textarea" id="f-content" name="content"
-                      style="min-height:220px;"></textarea>
+            <textarea class="mw-textarea" id="f-content" name="content" style="min-height:220px;"></textarea>
             <span class="mw-hint">Pisahkan paragraf dengan baris kosong.</span>
           </div>
 
           <div class="mw-field mw-field--full">
-            <label for="f-source-name">
-              Sumber <span class="mw-text-accent">*</span>
-            </label>
-            <input class="mw-input" id="f-source-name" name="source_name"
-                   required maxlength="160" placeholder="Contoh: Arsip Nasional RI">
-            <span class="mw-hint">Nama sumber wajib diisi (misal: nama lembaga, media, atau narasumber).</span>
+            <label for="f-source-name">Sumber <span class="mw-text-accent">*</span></label>
+            <input class="mw-input" id="f-source-name" name="source_name" required maxlength="160" placeholder="Contoh: Arsip Nasional RI">
           </div>
 
           <div class="mw-field mw-field--full">
             <label for="f-source-url">URL Sumber (opsional)</label>
-            <input class="mw-input" id="f-source-url" name="source_url"
-                   type="url" placeholder="https://...">
+            <input class="mw-input" id="f-source-url" name="source_url" type="url" placeholder="https://...">
           </div>
 
           <div class="mw-field mw-field--full">
             <label for="f-cover">Gambar Sampul</label>
             <input class="mw-input" id="f-cover" name="cover_file" type="file" accept="image/*">
-            <span class="mw-hint">Format JPG/PNG/WebP, maks 3MB. Kosongkan bila tidak ganti.</span>
+            <span class="mw-hint">Format JPG/PNG/WebP, maks 3MB.</span>
             <div class="mw-image-preview" id="mw-cover-preview">
               <img alt="Pratinjau gambar sampul">
             </div>
@@ -178,7 +373,7 @@
     </div>
   </div>
 
-  <!-- ============ MODAL KATEGORI ============ -->
+  <!-- MODAL KATEGORI -->
   <div class="mw-modal" id="mw-category-modal" role="dialog" aria-modal="true"
        aria-labelledby="mw-category-modal-title">
     <div class="mw-modal__dialog" style="max-width:480px;">
@@ -189,18 +384,14 @@
 
       <form id="mw-category-form" novalidate>
         <input type="hidden" name="id">
-
         <div class="mw-field">
           <label for="c-name">Nama Kategori <span class="mw-text-accent">*</span></label>
           <input class="mw-input" id="c-name" name="name" required maxlength="80">
         </div>
-
         <div class="mw-field">
           <label for="c-slug">Slug</label>
           <input class="mw-input" id="c-slug" name="slug" maxlength="80">
-          <span class="mw-hint">Huruf kecil, tanpa spasi. Contoh: teknologi.</span>
         </div>
-
         <div class="mw-modal__foot">
           <button type="button" class="mw-btn mw-btn--ghost" id="mw-category-cancel">Batal</button>
           <button type="submit" class="mw-btn mw-btn--accent" id="mw-category-save">Simpan</button>
@@ -213,6 +404,7 @@
   <script src="../js/config.js"></script>
   <script src="../js/supabase-client.js"></script>
   <script src="../js/utils.js"></script>
+  <script src="../js/settings-store.js"></script>
   <script src="../js/admin-auth.js"></script>
   <script src="../js/admin-dashboard.js"></script>
 </body>

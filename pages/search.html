@@ -19,24 +19,24 @@
 
   <div id="mw-header"></div>
 
-  <main id="mw-main" class="mw-container mw-section">
-    <header style="margin-bottom:32px;">
+  <main id="mw-main" class="mw-container">
+    <header class="mw-page-head">
       <nav class="mw-breadcrumb" aria-label="Breadcrumb">
         <a href="../index.html">Beranda</a>
         <span>›</span>
         <span>Pencarian</span>
       </nav>
-      <h1 style="font-size:var(--mw-fs-2xl);">Pencarian</h1>
+      <h1>Pencarian</h1>
 
       <form id="mw-search-form-page" role="search"
-            style="display:flex; gap:8px; max-width:560px; margin-top:16px;">
+            style="display:flex; gap:8px; max-width:560px; margin-top:var(--mw-space-4);">
         <label class="mw-visually-hidden" for="mw-search-page-input">Kata kunci</label>
         <input id="mw-search-page-input" class="mw-input" type="search" name="q"
                placeholder="Cari judul atau isi artikel…" autocomplete="off">
         <button class="mw-btn mw-btn--primary" type="submit">Cari</button>
       </form>
 
-      <p id="mw-search-info" class="mw-text-muted" style="margin-top:16px;"></p>
+      <p id="mw-search-info" class="mw-text-muted" style="margin-top:var(--mw-space-4);"></p>
     </header>
 
     <div id="mw-search-results" class="mw-grid mw-grid--3"></div>
@@ -50,5 +50,6 @@
   <script src="../js/utils.js"></script>
   <script src="../js/components.js"></script>
   <script src="../js/search.js"></script>
+  <script src="js/settings-store.js"></script>
 </body>
 </html>

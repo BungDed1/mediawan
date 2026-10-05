@@ -1,25 +1,75 @@
 /* =====================================================================
-   MEDIAWAN - ADMIN AUTH
-   Login via Supabase Auth, cek keanggotaan mw_admins.
-   Menolak user yang tidak terdaftar sebagai admin Mediawan.
+   MEDIAWAN - ADMIN AUTH (v2 - anti redirect loop)
    ===================================================================== */
 
-document.addEventListener("DOMContentLoaded", async () => {
-  renderLoginLogo();
-  bindLoginForm();
+/* ---------------- Helper: tunggu session benar-benar siap ---------------- */
 
-  // Kalau sudah login dan merupakan admin, langsung ke dashboard
-  const ok = await checkAdminAndRedirect();
-  if (ok) return;
+/**
+ * Tunggu sampai Supabase selesai restore session dari storage.
+ * Mengembalikan user jika ada, atau null.
+ */
+async function waitForSession(timeoutMs = 3000) {
+  return new Promise((resolve) => {
+    let settled = false;
+
+    const finish = (user) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      subscription?.unsubscribe?.();
+      resolve(user || null);
+    };
+
+    // 1) Cek session yang sudah ada dulu (fast path)
+    supabaseClient.auth.getSession().then(({ data }) => {
+      if (data?.session?.user) finish(data.session.user);
+    });
+
+    // 2) Dengarkan event pertama dari auth
+    const { data: sub } = supabaseClient.auth.onAuthStateChange((_event, session) => {
+      if (session?.user) finish(session.user);
+    });
+    const subscription = sub?.subscription || sub;
+
+    // 3) Timeout pengaman
+    const timer = setTimeout(() => {
+      supabaseClient.auth.getSession().then(({ data }) => finish(data?.session?.user || null));
+    }, timeoutMs);
+  });
+}
+
+/**
+ * Cek apakah user terdaftar sebagai admin Mediawan.
+ */
+async function isAdminUser(userId) {
+  if (!userId) return false;
+  const { data, error } = await supabaseClient
+    .from(TABLES.admins)
+    .select("user_id")
+    .eq("user_id", userId)
+    .maybeSingle();
+  if (error) {
+    console.error("[admin-auth] cek mw_admins gagal:", error);
+    return false;
+  }
+  return !!data;
+}
+
+/* ---------------- LOGIN PAGE ---------------- */
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Hanya jalankan logika login kalau ada form login di halaman ini
+  const loginForm = document.getElementById("mw-login-form");
+  if (loginForm) {
+    renderLoginLogo();
+    bindLoginForm();
+    autoRedirectIfAlreadyAdmin();
+  }
 });
-
-/* -------------------- LOGO -------------------- */
 
 function renderLoginLogo() {
   const mount = document.getElementById("mw-login-logo");
   if (!mount) return;
-  // logoTemplate didefinisikan di components.js (belum dimuat di halaman ini),
-  // jadi kita definisikan versi minimal khusus admin.
   mount.innerHTML = `
     <span class="mw-logo mw-logo--lg">
       <span class="mw-logo__media">media</span><span class="mw-logo__wan">wan</span><span class="mw-logo__dot">.</span>
@@ -27,7 +77,26 @@ function renderLoginLogo() {
   `;
 }
 
-/* -------------------- FORM LOGIN -------------------- */
+/**
+ * Kalau user sudah login DAN admin, redirect ke dashboard.
+ * Tidak loop karena requireAdmin() di dashboard juga pakai waitForSession.
+ */
+async function autoRedirectIfAlreadyAdmin() {
+  try {
+    const user = await waitForSession(1500);
+    if (!user) return;
+
+    const ok = await isAdminUser(user.id);
+    if (ok) {
+      window.location.replace("dashboard.html");
+    } else {
+      // Bukan admin -> bersihkan session agar tidak bikin loop
+      await supabaseClient.auth.signOut();
+    }
+  } catch (err) {
+    console.warn("[admin-auth] autoRedirect gagal:", err);
+  }
+}
 
 function bindLoginForm() {
   const form = document.getElementById("mw-login-form");
@@ -60,24 +129,14 @@ function bindLoginForm() {
       const userId = data?.user?.id;
       if (!userId) throw new Error("Gagal mendapatkan data user.");
 
-      // Cek apakah user terdaftar di mw_admins
-      const { data: adminRow, error: adminErr } = await supabaseClient
-        .from(TABLES.admins)
-        .select("user_id")
-        .eq("user_id", userId)
-        .maybeSingle();
-
-      if (adminErr) throw adminErr;
-
-      if (!adminRow) {
-        // Bukan admin Mediawan -> logout & tolak
+      const ok = await isAdminUser(userId);
+      if (!ok) {
         await supabaseClient.auth.signOut();
         showError("Akses ditolak. Akunmu tidak terdaftar sebagai admin Mediawan.");
         return;
       }
 
-      // Sukses
-      window.location.href = "dashboard.html";
+      window.location.replace("dashboard.html");
     } catch (err) {
       console.error("[admin-auth] login error:", err);
       showError(friendlyError(err));
@@ -88,66 +147,22 @@ function bindLoginForm() {
   });
 }
 
-/* -------------------- CEK SESI + ADMIN (REDIRECT) -------------------- */
+/* ---------------- DASHBOARD PROTECTION ---------------- */
 
 /**
- * Kalau user sudah login dan terdaftar sebagai admin, redirect ke dashboard.
- * Dipakai saat halaman login dibuka kembali.
- * @returns {Promise<boolean>} true kalau user langsung di-redirect.
- */
-async function checkAdminAndRedirect() {
-  try {
-    const { data: sessionData } = await supabaseClient.auth.getSession();
-    const user = sessionData?.session?.user;
-    if (!user) return false;
-
-    const { data: adminRow, error } = await supabaseClient
-      .from(TABLES.admins)
-      .select("user_id")
-      .eq("user_id", user.id)
-      .maybeSingle();
-
-    if (error) throw error;
-
-    if (!adminRow) {
-      // Sesi ada, tapi bukan admin -> logout untuk bersihkan
-      await supabaseClient.auth.signOut();
-      return false;
-    }
-
-    window.location.href = "dashboard.html";
-    return true;
-  } catch (err) {
-    console.warn("[admin-auth] cek sesi gagal:", err);
-    return false;
-  }
-}
-
-/* -------------------- PROTEKSI UNTUK DASHBOARD -------------------- */
-
-/**
- * Dipakai oleh dashboard.html: memastikan user login dan admin.
- * Kalau tidak, redirect ke halaman login.
- * @returns {Promise<{user: object, email: string} | null>}
+ * Dipakai oleh dashboard.html. Mengembalikan {user, email} atau null.
+ * Redirect ke login KALAU benar-benar belum login / bukan admin.
  */
 async function requireAdmin() {
   try {
-    const { data: sessionData } = await supabaseClient.auth.getSession();
-    const user = sessionData?.session?.user;
+    const user = await waitForSession(3000);
     if (!user) {
       window.location.replace("index.html");
       return null;
     }
 
-    const { data: adminRow, error } = await supabaseClient
-      .from(TABLES.admins)
-      .select("user_id")
-      .eq("user_id", user.id)
-      .maybeSingle();
-
-    if (error) throw error;
-
-    if (!adminRow) {
+    const ok = await isAdminUser(user.id);
+    if (!ok) {
       await supabaseClient.auth.signOut();
       window.location.replace("index.html?error=akses-ditolak");
       return null;
@@ -161,7 +176,7 @@ async function requireAdmin() {
   }
 }
 
-/* -------------------- HELPERS -------------------- */
+/* ---------------- Helpers ---------------- */
 
 function showError(msg) {
   const el = document.getElementById("mw-login-error");
