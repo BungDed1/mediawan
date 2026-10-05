@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO dasar (akan diisi/diubah oleh article.js) -->
+  <title>Memuat artikel… — Mediawan</title>
+  <meta name="description" content="Artikel Mediawan." id="mw-meta-description">
+  <meta name="theme-color" content="#0d0d0d">
+
+  <!-- Open Graph (diisi oleh article.js) -->
+  <meta property="og:type"        content="article" id="mw-og-type">
+  <meta property="og:site_name"   content="Mediawan">
+  <meta property="og:title"       content="Mediawan" id="mw-og-title">
+  <meta property="og:description" content="" id="mw-og-description">
+  <meta property="og:image"       content="" id="mw-og-image">
+  <meta property="og:url"         content="" id="mw-og-url">
+
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="" id="mw-tw-title">
+  <meta name="twitter:description" content="" id="mw-tw-description">
+  <meta name="twitter:image"       content="" id="mw-tw-image">
+
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+
+  <div id="mw-header"></div>
+
+  <main id="mw-main">
+    <!-- Artikel -->
+    <article class="mw-container mw-article" id="mw-article" aria-live="polite">
+      <!-- Skeleton awal -->
+      <div class="mw-skeleton mw-skeleton--title" style="width:30%"></div>
+      <div class="mw-skeleton mw-skeleton--title" style="width:90%;height:42px"></div>
+      <div class="mw-skeleton mw-skeleton--title" style="width:70%;height:42px"></div>
+      <div class="mw-skeleton mw-skeleton--text" style="margin-top:16px;width:40%"></div>
+      <div class="mw-skeleton mw-skeleton--card" style="margin-top:24px;"></div>
+      <div class="mw-skeleton mw-skeleton--text" style="margin-top:24px;"></div>
+      <div class="mw-skeleton mw-skeleton--text"></div>
+      <div class="mw-skeleton mw-skeleton--text" style="width:80%"></div>
+    </article>
+
+    <!-- Artikel terkait -->
+    <section class="mw-container mw-section" aria-labelledby="mw-related-title"
+             id="mw-related-section" hidden>
+      <div class="mw-section__head">
+        <h2 class="mw-section__title" id="mw-related-title">Artikel Terkait</h2>
+      </div>
+      <div id="mw-related" class="mw-grid mw-grid--3"></div>
+    </section>
+  </main>
+
+  <div id="mw-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/supabase-client.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/components.js"></script>
+  <script src="../js/article.js"></script>
+</body>
+</html>

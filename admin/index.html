@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Masuk Admin — Mediawan</title>
+  <meta name="description" content="Halaman masuk administrator Mediawan.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0d0d0d">
+
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
+
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+  <main class="mw-login">
+    <div class="mw-login__card">
+      <div class="mw-login__brand" id="mw-login-logo"></div>
+
+      <h1 class="mw-login__title mw-text-center">Masuk Admin</h1>
+      <p class="mw-login__sub mw-text-center">
+        Halaman ini hanya untuk pengelola Mediawan.
+      </p>
+
+      <div id="mw-login-error" class="mw-login__error" role="alert"></div>
+
+      <form id="mw-login-form" novalidate>
+        <div class="mw-field">
+          <label for="mw-email">Email</label>
+          <input class="mw-input" id="mw-email" name="email" type="email"
+                 autocomplete="email" required placeholder="email@kamu.com">
+        </div>
+
+        <div class="mw-field">
+          <label for="mw-password">Password</label>
+          <input class="mw-input" id="mw-password" name="password" type="password"
+                 autocomplete="current-password" required placeholder="••••••••">
+        </div>
+
+        <button class="mw-btn mw-btn--accent mw-btn--block" type="submit" id="mw-login-submit">
+          Masuk
+        </button>
+      </form>
+
+      <p class="mw-text-center mw-text-muted" style="margin-top:20px;font-size:13px;">
+        <a href="../index.html">← Kembali ke Beranda</a>
+      </p>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/supabase-client.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/admin-auth.js"></script>
+</body>
+</html>

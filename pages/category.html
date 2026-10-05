@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Kategori — Mediawan</title>
+  <meta name="description" content="Daftar artikel berdasarkan kategori di Mediawan.">
+  <meta name="theme-color" content="#0d0d0d">
+
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
+
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+</head>
+<body>
+
+  <div id="mw-header"></div>
+
+  <main id="mw-main" class="mw-container mw-section">
+    <header style="margin-bottom:32px;">
+      <nav class="mw-breadcrumb" aria-label="Breadcrumb">
+        <a href="../index.html">Beranda</a>
+        <span>›</span>
+        <span id="mw-cat-crumb">Kategori</span>
+      </nav>
+      <h1 id="mw-cat-title" style="font-size:var(--mw-fs-2xl);">
+        <span class="mw-skeleton" style="display:inline-block;width:220px;height:32px;"></span>
+      </h1>
+      <p id="mw-cat-desc" class="mw-text-muted">Memuat kategori…</p>
+    </header>
+
+    <div id="mw-cat-grid" class="mw-grid mw-grid--3"></div>
+
+    <nav id="mw-cat-pagination" class="mw-pagination" aria-label="Pagination"></nav>
+  </main>
+
+  <div id="mw-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/supabase-client.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/components.js"></script>
+  <script src="../js/category.js"></script>
+</body>
+</html>

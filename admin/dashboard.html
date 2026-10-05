@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Dashboard Admin — Mediawan</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#0d0d0d">
+
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
+
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+
+  <div class="mw-admin" id="mw-admin" hidden>
+
+    <!-- HEADER -->
+    <header class="mw-admin__header">
+      <div class="mw-admin__header-left">
+        <span class="mw-logo mw-logo--sm">
+          <span class="mw-logo__media">media</span><span class="mw-logo__wan">wan</span><span class="mw-logo__dot">.</span>
+        </span>
+        <span class="mw-badge mw-badge--muted">Admin</span>
+      </div>
+      <div class="mw-admin__header-right">
+        <span class="mw-admin__user" id="mw-admin-email">…</span>
+        <button class="mw-btn mw-btn--ghost mw-btn--sm" id="mw-logout-btn">Keluar</button>
+      </div>
+    </header>
+
+    <!-- TABS MOBILE -->
+    <nav class="mw-admin__tabs-mobile" aria-label="Navigasi admin (mobile)">
+      <button data-tab="articles" class="is-active">Artikel</button>
+      <button data-tab="categories">Kategori</button>
+    </nav>
+
+    <div class="mw-admin__body">
+      <!-- SIDEBAR -->
+      <aside class="mw-admin__sidebar">
+        <nav class="mw-admin__nav" aria-label="Navigasi admin">
+          <button data-tab="articles" class="is-active">📝 Artikel</button>
+          <button data-tab="categories">🏷️ Kategori</button>
+        </nav>
+      </aside>
+
+      <!-- CONTENT -->
+      <section class="mw-admin__content">
+
+        <!-- TAB: ARTIKEL -->
+        <div id="mw-tab-articles">
+          <div class="mw-panel">
+            <div class="mw-panel__title">
+              <span>Daftar Artikel</span>
+              <div class="mw-panel__actions">
+                <button class="mw-btn mw-btn--ghost mw-btn--sm" id="mw-refresh-articles">Muat ulang</button>
+                <button class="mw-btn mw-btn--accent mw-btn--sm" id="mw-new-article">+ Artikel Baru</button>
+              </div>
+            </div>
+            <div id="mw-articles-list"></div>
+          </div>
+        </div>
+
+        <!-- TAB: KATEGORI -->
+        <div id="mw-tab-categories" hidden>
+          <div class="mw-panel">
+            <div class="mw-panel__title">
+              <span>Daftar Kategori</span>
+              <div class="mw-panel__actions">
+                <button class="mw-btn mw-btn--ghost mw-btn--sm" id="mw-refresh-categories">Muat ulang</button>
+                <button class="mw-btn mw-btn--accent mw-btn--sm" id="mw-new-category">+ Kategori Baru</button>
+              </div>
+            </div>
+            <div id="mw-categories-list"></div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </div>
+
+  <!-- ============ MODAL ARTIKEL ============ -->
+  <div class="mw-modal" id="mw-article-modal" role="dialog" aria-modal="true"
+       aria-labelledby="mw-article-modal-title">
+    <div class="mw-modal__dialog">
+      <div class="mw-modal__head">
+        <h2 class="mw-modal__title" id="mw-article-modal-title">Artikel Baru</h2>
+        <button class="mw-modal__close" id="mw-article-modal-close" aria-label="Tutup">×</button>
+      </div>
+
+      <form id="mw-article-form" novalidate>
+        <input type="hidden" name="id">
+
+        <div class="mw-form-grid">
+          <div class="mw-field mw-field--full">
+            <label for="f-title">Judul <span class="mw-text-accent">*</span></label>
+            <input class="mw-input" id="f-title" name="title" required maxlength="200">
+          </div>
+
+          <div class="mw-field mw-field--full">
+            <label for="f-slug">Slug (otomatis dari judul, bisa diubah)</label>
+            <input class="mw-input" id="f-slug" name="slug" maxlength="200">
+          </div>
+
+          <div class="mw-field">
+            <label for="f-category">Kategori</label>
+            <select class="mw-select" id="f-category" name="category_id">
+              <option value="">— Tanpa kategori —</option>
+            </select>
+          </div>
+
+          <div class="mw-field">
+            <label for="f-author">Penulis</label>
+            <input class="mw-input" id="f-author" name="author" maxlength="120">
+          </div>
+
+          <div class="mw-field mw-field--full">
+            <label for="f-excerpt">Ringkasan (excerpt)</label>
+            <textarea class="mw-textarea" id="f-excerpt" name="excerpt"
+                      style="min-height:80px;" maxlength="400"></textarea>
+          </div>
+
+          <div class="mw-field mw-field--full">
+            <label for="f-content">Isi Artikel</label>
+            <textarea class="mw-textarea" id="f-content" name="content"
+                      style="min-height:220px;"></textarea>
+            <span class="mw-hint">Pisahkan paragraf dengan baris kosong.</span>
+          </div>
+
+          <div class="mw-field mw-field--full">
+            <label for="f-source-name">
+              Sumber <span class="mw-text-accent">*</span>
+            </label>
+            <input class="mw-input" id="f-source-name" name="source_name"
+                   required maxlength="160" placeholder="Contoh: Arsip Nasional RI">
+            <span class="mw-hint">Nama sumber wajib diisi (misal: nama lembaga, media, atau narasumber).</span>
+          </div>
+
+          <div class="mw-field mw-field--full">
+            <label for="f-source-url">URL Sumber (opsional)</label>
+            <input class="mw-input" id="f-source-url" name="source_url"
+                   type="url" placeholder="https://...">
+          </div>
+
+          <div class="mw-field mw-field--full">
+            <label for="f-cover">Gambar Sampul</label>
+            <input class="mw-input" id="f-cover" name="cover_file" type="file" accept="image/*">
+            <span class="mw-hint">Format JPG/PNG/WebP, maks 3MB. Kosongkan bila tidak ganti.</span>
+            <div class="mw-image-preview" id="mw-cover-preview">
+              <img alt="Pratinjau gambar sampul">
+            </div>
+          </div>
+
+          <div class="mw-field mw-field--full">
+            <div class="mw-field-row">
+              <label class="mw-checkbox">
+                <input type="checkbox" id="f-featured" name="is_featured">
+                Tandai sebagai unggulan
+              </label>
+              <label class="mw-checkbox">
+                <input type="checkbox" id="f-published" name="is_published">
+                Publikasikan
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="mw-modal__foot">
+          <button type="button" class="mw-btn mw-btn--ghost" id="mw-article-cancel">Batal</button>
+          <button type="submit" class="mw-btn mw-btn--accent" id="mw-article-save">Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ MODAL KATEGORI ============ -->
+  <div class="mw-modal" id="mw-category-modal" role="dialog" aria-modal="true"
+       aria-labelledby="mw-category-modal-title">
+    <div class="mw-modal__dialog" style="max-width:480px;">
+      <div class="mw-modal__head">
+        <h2 class="mw-modal__title" id="mw-category-modal-title">Kategori</h2>
+        <button class="mw-modal__close" id="mw-category-modal-close" aria-label="Tutup">×</button>
+      </div>
+
+      <form id="mw-category-form" novalidate>
+        <input type="hidden" name="id">
+
+        <div class="mw-field">
+          <label for="c-name">Nama Kategori <span class="mw-text-accent">*</span></label>
+          <input class="mw-input" id="c-name" name="name" required maxlength="80">
+        </div>
+
+        <div class="mw-field">
+          <label for="c-slug">Slug</label>
+          <input class="mw-input" id="c-slug" name="slug" maxlength="80">
+          <span class="mw-hint">Huruf kecil, tanpa spasi. Contoh: teknologi.</span>
+        </div>
+
+        <div class="mw-modal__foot">
+          <button type="button" class="mw-btn mw-btn--ghost" id="mw-category-cancel">Batal</button>
+          <button type="submit" class="mw-btn mw-btn--accent" id="mw-category-save">Simpan</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/supabase-client.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/admin-auth.js"></script>
+  <script src="../js/admin-dashboard.js"></script>
+</body>
+</html>

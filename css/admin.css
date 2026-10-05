@@ -1,0 +1,373 @@
+/* =====================================================================
+   MEDIAWAN - ADMIN CSS
+   Layout khusus area admin: login page, sidebar, tabel, form.
+   ===================================================================== */
+
+/* ---------- LOGIN PAGE ---------- */
+.mw-login {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--mw-bg-soft);
+  padding: var(--mw-space-5);
+}
+.mw-login__card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--mw-bg);
+  border-radius: var(--mw-radius-lg);
+  padding: var(--mw-space-6);
+  box-shadow: var(--mw-shadow-lg);
+}
+.mw-login__brand {
+  text-align: center;
+  margin-bottom: var(--mw-space-5);
+}
+.mw-login__title {
+  font-size: var(--mw-fs-xl);
+  margin-bottom: var(--mw-space-1);
+}
+.mw-login__sub {
+  color: var(--mw-text-muted);
+  font-size: var(--mw-fs-sm);
+}
+.mw-login__error {
+  background: #fdf1f1;
+  color: var(--mw-danger);
+  border: 1px solid #e6b8b8;
+  padding: 10px 14px;
+  border-radius: var(--mw-radius-sm);
+  font-size: var(--mw-fs-sm);
+  margin-bottom: var(--mw-space-4);
+  display: none;
+}
+.mw-login__error.is-visible { display: block; }
+
+/* ---------- DASHBOARD LAYOUT ---------- */
+.mw-admin {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 100vh;
+  background: var(--mw-bg-soft);
+}
+
+.mw-admin__header {
+  background: var(--mw-bg);
+  border-bottom: 1px solid var(--mw-border);
+  padding: 0 var(--mw-space-5);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+.mw-admin__header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--mw-space-4);
+}
+.mw-admin__header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--mw-space-3);
+  font-size: var(--mw-fs-sm);
+}
+.mw-admin__user {
+  color: var(--mw-text-soft);
+  display: none;
+}
+@media (min-width: 640px) {
+  .mw-admin__user { display: inline; }
+}
+
+.mw-admin__body {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+/* ---------- SIDEBAR ---------- */
+.mw-admin__sidebar {
+  background: var(--mw-bg);
+  border-right: 1px solid var(--mw-border);
+  padding: var(--mw-space-4) 0;
+  display: none;
+}
+.mw-admin__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 var(--mw-space-3);
+}
+.mw-admin__nav button {
+  display: flex;
+  align-items: center;
+  gap: var(--mw-space-3);
+  padding: 12px 14px;
+  background: transparent;
+  border: none;
+  border-radius: var(--mw-radius-sm);
+  text-align: left;
+  font-size: var(--mw-fs-sm);
+  font-weight: 600;
+  color: var(--mw-text-soft);
+  transition: all var(--mw-transition);
+}
+.mw-admin__nav button:hover {
+  background: var(--mw-bg-soft);
+  color: var(--mw-text);
+}
+.mw-admin__nav button.is-active {
+  background: var(--mw-accent-soft);
+  color: var(--mw-accent);
+}
+
+.mw-admin__content {
+  padding: var(--mw-space-5);
+  overflow-x: auto;
+}
+.mw-admin__content h1 {
+  font-size: var(--mw-fs-xl);
+  margin-bottom: var(--mw-space-5);
+}
+
+@media (min-width: 900px) {
+  .mw-admin__body {
+    grid-template-columns: 240px 1fr;
+  }
+  .mw-admin__sidebar { display: block; }
+}
+
+/* Mobile top tabs (muncul kalau sidebar disembunyikan) */
+.mw-admin__tabs-mobile {
+  display: flex;
+  gap: var(--mw-space-2);
+  padding: var(--mw-space-3) var(--mw-space-4);
+  background: var(--mw-bg);
+  border-bottom: 1px solid var(--mw-border);
+  overflow-x: auto;
+  position: sticky;
+  top: 64px;
+  z-index: 30;
+}
+.mw-admin__tabs-mobile button {
+  white-space: nowrap;
+  padding: 8px 14px;
+  border-radius: var(--mw-radius-pill);
+  border: 1px solid var(--mw-border-strong);
+  background: var(--mw-bg);
+  font-size: var(--mw-fs-xs);
+  font-weight: 600;
+}
+.mw-admin__tabs-mobile button.is-active {
+  background: var(--mw-accent);
+  color: #fff;
+  border-color: var(--mw-accent);
+}
+@media (min-width: 900px) {
+  .mw-admin__tabs-mobile { display: none; }
+}
+
+/* ---------- PANEL / CARD ---------- */
+.mw-panel {
+  background: var(--mw-bg);
+  border: 1px solid var(--mw-border);
+  border-radius: var(--mw-radius);
+  padding: var(--mw-space-5);
+  margin-bottom: var(--mw-space-5);
+}
+.mw-panel__title {
+  font-size: var(--mw-fs-md);
+  font-weight: 700;
+  margin: 0 0 var(--mw-space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--mw-space-3);
+  flex-wrap: wrap;
+}
+.mw-panel__title .mw-panel__actions {
+  display: flex;
+  gap: var(--mw-space-2);
+  flex-wrap: wrap;
+}
+
+/* ---------- FORM GRID ---------- */
+.mw-form-grid {
+  display: grid;
+  gap: var(--mw-space-4);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 700px) {
+  .mw-form-grid { grid-template-columns: 1fr 1fr; }
+  .mw-form-grid .mw-field--full { grid-column: 1 / -1; }
+}
+
+.mw-field-row {
+  display: flex;
+  align-items: center;
+  gap: var(--mw-space-3);
+  flex-wrap: wrap;
+}
+.mw-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--mw-fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+.mw-checkbox input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--mw-accent);
+  cursor: pointer;
+}
+
+/* ---------- IMAGE PREVIEW ---------- */
+.mw-image-preview {
+  margin-top: var(--mw-space-2);
+  border-radius: var(--mw-radius-sm);
+  overflow: hidden;
+  background: var(--mw-bg-muted);
+  max-width: 320px;
+  aspect-ratio: 16 / 10;
+  display: none;
+}
+.mw-image-preview.is-visible { display: block; }
+.mw-image-preview img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- TABLE ---------- */
+.mw-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: var(--mw-radius);
+  border: 1px solid var(--mw-border);
+  background: var(--mw-bg);
+}
+.mw-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--mw-fs-sm);
+  min-width: 720px;
+}
+.mw-table th,
+.mw-table td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--mw-border);
+  vertical-align: middle;
+}
+.mw-table th {
+  background: var(--mw-bg-soft);
+  font-size: var(--mw-fs-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--mw-text-muted);
+  font-weight: 700;
+}
+.mw-table tr:last-child td { border-bottom: none; }
+.mw-table tr:hover td { background: #fcfaf7; }
+
+.mw-table__thumb {
+  width: 60px;
+  height: 40px;
+  border-radius: 6px;
+  object-fit: cover;
+  background: var(--mw-bg-muted);
+}
+
+.mw-table__actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.mw-table__actions button {
+  padding: 6px 10px;
+  font-size: var(--mw-fs-xs);
+  border-radius: var(--mw-radius-sm);
+  border: 1px solid var(--mw-border-strong);
+  background: var(--mw-bg);
+  font-weight: 600;
+}
+.mw-table__actions button:hover {
+  background: var(--mw-black);
+  color: #fff;
+  border-color: var(--mw-black);
+}
+.mw-table__actions button.is-danger:hover {
+  background: var(--mw-danger);
+  border-color: var(--mw-danger);
+  color: #fff;
+}
+
+/* ---------- MODAL ---------- */
+.mw-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  padding: var(--mw-space-5) var(--mw-space-3);
+  overflow-y: auto;
+  background: rgba(13, 13, 13, 0.5);
+  z-index: 200;
+}
+.mw-modal.is-open { display: flex; }
+
+.mw-modal__dialog {
+  width: 100%;
+  max-width: 720px;
+  background: var(--mw-bg);
+  border-radius: var(--mw-radius-lg);
+  padding: var(--mw-space-5);
+  box-shadow: var(--mw-shadow-lg);
+  animation: mw-modal-in 180ms ease;
+}
+@keyframes mw-modal-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.mw-modal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--mw-space-4);
+}
+.mw-modal__title { margin: 0; font-size: var(--mw-fs-lg); }
+.mw-modal__close {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  line-height: 1;
+  padding: 4px 10px;
+  border-radius: var(--mw-radius-sm);
+}
+.mw-modal__close:hover { background: var(--mw-bg-soft); }
+
+.mw-modal__foot {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--mw-space-2);
+  margin-top: var(--mw-space-4);
+  padding-top: var(--mw-space-4);
+  border-top: 1px solid var(--mw-border);
+  flex-wrap: wrap;
+}
+
+/* ---------- BADGE TAMBAHAN ADMIN ---------- */
+.mw-tag {
+  display: inline-block;
+  padding: 3px 9px;
+  border-radius: var(--mw-radius-pill);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.mw-tag--published { background: #e7f3ec; color: var(--mw-success); }
+.mw-tag--draft     { background: #faf1de; color: var(--mw-warning); }
+.mw-tag--featured  { background: var(--mw-accent-soft); color: var(--mw-accent); }

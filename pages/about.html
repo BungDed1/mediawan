@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Tentang Mediawan — Media Berita & Fakta Indonesia</title>
+  <meta name="description"
+        content="Mediawan adalah media berita & fakta independen berbahasa Indonesia. Pelajari misi, nilai, dan cara kami bekerja.">
+  <meta name="theme-color" content="#0d0d0d">
+
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="Mediawan">
+  <meta property="og:title"       content="Tentang Mediawan">
+  <meta property="og:description" content="Media berita & fakta independen berbahasa Indonesia.">
+
+  <link rel="icon" type="image/svg+xml" href="../assets/icons/favicon.svg">
+
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/base.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+
+  <style>
+    .mw-about-hero {
+      padding: var(--mw-space-8) 0 var(--mw-space-6);
+      max-width: 780px;
+    }
+    .mw-about-hero h1 {
+      font-size: var(--mw-fs-3xl);
+      letter-spacing: -0.02em;
+    }
+    .mw-about-hero p {
+      font-size: var(--mw-fs-md);
+      color: var(--mw-text-soft);
+    }
+    .mw-values {
+      display: grid;
+      gap: var(--mw-space-5);
+      grid-template-columns: 1fr;
+      margin-top: var(--mw-space-6);
+    }
+    @media (min-width: 700px) {
+      .mw-values { grid-template-columns: repeat(3, 1fr); }
+    }
+    .mw-value {
+      padding: var(--mw-space-5);
+      border: 1px solid var(--mw-border);
+      border-radius: var(--mw-radius);
+      background: var(--mw-bg-soft);
+    }
+    .mw-value h3 { margin-bottom: 8px; }
+    .mw-value p { margin: 0; font-size: var(--mw-fs-sm); }
+  </style>
+</head>
+<body>
+
+  <div id="mw-header"></div>
+
+  <main id="mw-main">
+    <section class="mw-container mw-about-hero">
+      <nav class="mw-breadcrumb" aria-label="Breadcrumb">
+        <a href="../index.html">Beranda</a>
+        <span>›</span>
+        <span>Tentang</span>
+      </nav>
+      <span class="mw-badge">Tentang Kami</span>
+      <h1 style="margin-top:12px;">
+        Media yang mengutamakan fakta, bukan sensasi.
+      </h1>
+      <p>
+        Mediawan adalah media berita & fakta independen berbahasa Indonesia.
+        Kami percaya bahwa informasi yang baik harus jernih, hangat, dan bisa
+        dipertanggungjawabkan. Setiap artikel yang kami terbitkan selalu
+        menyertakan sumber yang jelas.
+      </p>
+    </section>
+
+    <section class="mw-container mw-section" aria-labelledby="mw-values-title">
+      <h2 id="mw-values-title" class="mw-section__title">Nilai yang kami pegang</h2>
+
+      <div class="mw-values">
+        <div class="mw-value">
+          <h3>Akurasi</h3>
+          <p>
+            Setiap fakta diverifikasi ke sumber primer. Bila ada koreksi,
+            kami sampaikan secara terbuka.
+          </p>
+        </div>
+        <div class="mw-value">
+          <h3>Independen</h3>
+          <p>
+            Kami tidak terikat kepentingan politik atau komersial mana pun.
+            Pembaca adalah prioritas utama.
+          </p>
+        </div>
+        <div class="mw-value">
+          <h3>Ramah</h3>
+          <p>
+            Berita boleh serius, tapi penyampaiannya tetap hangat dan mudah
+            dipahami semua kalangan.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mw-container mw-section" aria-labelledby="mw-how-title">
+      <h2 id="mw-how-title" class="mw-section__title">Bagaimana kami bekerja</h2>
+      <ol style="max-width:720px; color:var(--mw-text-soft); line-height:1.9;">
+        <li><strong>Riset.</strong> Tim redaksi mengumpulkan data dari sumber resmi, arsip, dan wawancara.</li>
+        <li><strong>Verifikasi.</strong> Setiap klaim dicocokkan dengan minimal dua sumber independen.</li>
+        <li><strong>Penulisan.</strong> Disusun dengan bahasa yang jernih, singkat, dan tidak memihak.</li>
+        <li><strong>Publikasi.</strong> Artikel diterbitkan bersama nama sumber agar pembaca bisa menelusuri sendiri.</li>
+      </ol>
+    </section>
+
+    <section class="mw-container mw-section" aria-labelledby="mw-contact-title">
+      <h2 id="mw-contact-title" class="mw-section__title">Kontak</h2>
+      <p style="max-width:720px;">
+        Punya tips, koreksi, atau ingin bekerja sama? Kirim email ke
+        <a href="mailto:redaksi@mediawan.id" class="mw-text-accent">redaksi@mediawan.id</a>.
+        Kami membaca setiap pesan.
+      </p>
+    </section>
+  </main>
+
+  <div id="mw-footer"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../js/config.js"></script>
+  <script src="../js/supabase-client.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/components.js"></script>
+  <script>
+    // Halaman statis: cukup render header & footer
+    document.addEventListener("DOMContentLoaded", () => {
+      initPageChrome({ active: "tentang", footer: true });
+    });
+  </script>
+</body>
+</html>

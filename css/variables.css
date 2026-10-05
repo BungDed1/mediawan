@@ -1,0 +1,100 @@
+/* =====================================================================
+   MEDIAWAN - VARIABLES
+   Semua token desain: warna, font, spacing, radius, shadow.
+   Ubah aksen di sini untuk mengubah tema seluruh website.
+   ===================================================================== */
+
+@font-face {
+  font-family: "Anantason";
+  src: url("../assets/fonts/Anantason.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Anantason";
+  src: url("../assets/fonts/Anantason-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* -------- Warna dasar (hitam-putih) -------- */
+  --mw-black: #0d0d0d;
+  --mw-white: #ffffff;
+  --mw-bg: #ffffff;
+  --mw-bg-soft: #f7f5f2;          /* nuansa hangat seperti tuku.coffee */
+  --mw-bg-muted: #efece7;
+  --mw-text: #0d0d0d;
+  --mw-text-soft: #5a5a5a;
+  --mw-text-muted: #8a8a8a;
+  --mw-border: #e6e2dc;
+  --mw-border-strong: #d6d0c8;
+
+  /* -------- Warna aksen (satu warna) -------- */
+  --mw-accent: #c8452b;            /* merah bata hangat */
+  --mw-accent-hover: #a83a23;
+  --mw-accent-soft: #fbe9e4;
+
+  /* -------- Status -------- */
+  --mw-success: #2f7d4f;
+  --mw-warning: #b07a1a;
+  --mw-danger: #b83232;
+
+  /* -------- Tipografi -------- */
+  --mw-font-body: Arial, Helvetica, sans-serif;
+  --mw-font-logo: "Anantason", Arial, Helvetica, sans-serif;
+
+  --mw-fs-xs: 12px;
+  --mw-fs-sm: 14px;
+  --mw-fs-base: 16px;
+  --mw-fs-md: 18px;
+  --mw-fs-lg: 22px;
+  --mw-fs-xl: 28px;
+  --mw-fs-2xl: 36px;
+  --mw-fs-3xl: 48px;
+  --mw-fs-hero: 56px;
+
+  --mw-lh-tight: 1.15;
+  --mw-lh-normal: 1.5;
+  --mw-lh-loose: 1.75;
+
+  /* -------- Spacing -------- */
+  --mw-space-1: 4px;
+  --mw-space-2: 8px;
+  --mw-space-3: 12px;
+  --mw-space-4: 16px;
+  --mw-space-5: 24px;
+  --mw-space-6: 32px;
+  --mw-space-7: 48px;
+  --mw-space-8: 64px;
+  --mw-space-9: 96px;
+
+  /* -------- Radius -------- */
+  --mw-radius-sm: 8px;
+  --mw-radius: 14px;
+  --mw-radius-lg: 22px;
+  --mw-radius-pill: 999px;
+
+  /* -------- Shadow -------- */
+  --mw-shadow-sm: 0 1px 2px rgba(13, 13, 13, 0.05);
+  --mw-shadow: 0 4px 16px rgba(13, 13, 13, 0.08);
+  --mw-shadow-lg: 0 12px 32px rgba(13, 13, 13, 0.12);
+
+  /* -------- Layout -------- */
+  --mw-container: 1180px;
+  --mw-header-h: 72px;
+
+  /* -------- Transisi -------- */
+  --mw-transition: 180ms ease;
+}
+
+/* Tema gelap untuk header saat di halaman artikel (opsional) */
+[data-theme="dark"] {
+  --mw-bg: #0d0d0d;
+  --mw-text: #ffffff;
+  --mw-text-soft: #d0d0d0;
+  --mw-border: #2a2a2a;
+}
