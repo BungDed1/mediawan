@@ -15,50 +15,95 @@
   <link rel="stylesheet" href="../css/layout.css">
   <link rel="stylesheet" href="../css/components.css">
 
-  <style>
+   <style>
+    /* HERO HALAMAN TENTANG — mobile-first */
     .mw-about-hero {
-      padding: var(--mw-space-6) 0 var(--mw-space-3);
+      padding: 20px 0 8px;
       max-width: 780px;
     }
     .mw-about-hero h1 {
-      font-size: var(--mw-fs-3xl);
+      font-size: 26px;
+      line-height: 1.2;
       letter-spacing: -0.02em;
-      margin: var(--mw-space-4) 0 var(--mw-space-3);
-      line-height: 1.15;
+      margin: 12px 0 12px;
     }
     .mw-about-hero p {
-      font-size: var(--mw-fs-md);
+      font-size: 15px;
       color: var(--mw-text-soft);
-      line-height: 1.7;
+      line-height: 1.65;
       margin: 0;
-      white-space: pre-line;
     }
 
+    /* NILAI */
     .mw-values {
       display: grid;
-      gap: var(--mw-space-5);
+      gap: 16px;
       grid-template-columns: 1fr;
     }
-    @media (min-width: 700px) {
-      .mw-values { grid-template-columns: repeat(3, 1fr); }
-    }
     .mw-value {
-      padding: var(--mw-space-5);
+      padding: 20px;
       border: 1px solid var(--mw-border);
-      border-radius: var(--mw-radius);
+      border-radius: 14px;
       background: var(--mw-bg-soft);
     }
-    .mw-value h3 { margin: 0 0 var(--mw-space-2); font-size: var(--mw-fs-md); }
-    .mw-value p { margin: 0; font-size: var(--mw-fs-sm); line-height: 1.65; color: var(--mw-text-soft); }
+    .mw-value h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+    }
+    .mw-value p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--mw-text-soft);
+    }
 
+    /* CARA KERJA */
     .mw-about-list {
       max-width: 720px;
       color: var(--mw-text-soft);
-      line-height: 1.9;
-      padding-left: var(--mw-space-5);
+      line-height: 1.8;
+      padding-left: 20px;
       margin: 0;
+      font-size: 15px;
     }
-    .mw-about-list li { margin-bottom: var(--mw-space-2); }
+    .mw-about-list li { margin-bottom: 8px; }
+
+    /* ---------- TABLET & DESKTOP ---------- */
+    @media (min-width: 640px) {
+      .mw-about-hero {
+        padding: 36px 0 12px;
+      }
+      .mw-about-hero h1 {
+        font-size: 34px;
+        line-height: 1.15;
+        margin: 16px 0;
+      }
+      .mw-about-hero p {
+        font-size: 17px;
+        line-height: 1.7;
+      }
+      .mw-values {
+        gap: 20px;
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .mw-value { padding: 24px; }
+      .mw-value h3 { font-size: 17px; }
+      .mw-value p { font-size: 15px; }
+      .mw-about-list { font-size: 16px; padding-left: 24px; }
+    }
+
+    @media (min-width: 900px) {
+      .mw-about-hero {
+        padding: 48px 0 16px;
+      }
+      .mw-about-hero h1 {
+        font-size: 44px;
+        line-height: 1.1;
+      }
+      .mw-about-hero p {
+        font-size: 18px;
+      }
+    }
   </style>
 </head>
 <body>

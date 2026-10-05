@@ -1,8 +1,20 @@
 /* =====================================================================
-   MEDIAWAN - LAYOUT (v4 — padding konsisten)
+   MEDIAWAN - LAYOUT (v5 — anti mepet)
+   Prinsip:
+   1. .mw-container = padding horizontal + max-width (untuk konten di luar section)
+   2. .mw-section    = padding horizontal + vertikal (biar tidak bergantung container)
+   3. Jangan pernah pakai "mw-container mw-section" bersamaan
    ===================================================================== */
 
-/* ---------- BASE CONTAINER (dipaksa punya padding di semua breakpoint) ---------- */
+/* ---------- RESET BOX MODEL UNTUK SEMUA ELEMEN LAYOUT ---------- */
+.mw-container,
+.mw-section,
+.mw-header__inner,
+.mw-footer > .mw-container {
+  box-sizing: border-box;
+}
+
+/* ---------- CONTAINER ---------- */
 .mw-container {
   width: 100%;
   max-width: 1180px;
@@ -10,7 +22,6 @@
   margin-right: auto;
   padding-left: 20px;
   padding-right: 20px;
-  box-sizing: border-box;
 }
 
 @media (min-width: 640px) {
@@ -146,16 +157,42 @@
   margin: 0;
 }
 
-/* ---------- SECTION ---------- */
-.mw-section { padding: 28px 0; }
+/* =====================================================================
+   SECTION — DI SINI KUNCI ANTI MEPET
+   Section selalu punya padding horizontal. Konten di dalam section
+   tetap dibungkus .mw-container supaya sejajar dengan header/hero.
+   ===================================================================== */
+
+.mw-section {
+  padding-top: 28px;
+  padding-bottom: 28px;
+  padding-left: 20px;   /* ⬅️ KUNCI: jangan 0 */
+  padding-right: 20px;  /* ⬅️ KUNCI: jangan 0 */
+}
+
+/* Di dalam section, container tidak perlu menambah padding lagi */
+.mw-section > .mw-container {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Kalau ada section yang langsung pakai .mw-container di dalamnya
+   (tanpa wrapper .mw-section), tetap aman karena container punya padding. */
+
 .mw-section--soft {
   background: var(--mw-bg-soft);
   border-radius: 16px;
-  padding: 24px 0;
-  margin: 20px 0;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
-/* Section soft: kasih padding horizontal di dalam container-nya juga */
-.mw-section--soft > .mw-container { padding-top: 0; padding-bottom: 0; }
+.mw-section--soft > .mw-container {
+  padding-left: 0;
+  padding-right: 0;
+}
 
 .mw-section__head {
   display: flex;
@@ -176,6 +213,21 @@
   font-weight: 700;
   color: var(--mw-accent);
   white-space: nowrap;
+}
+
+/* ---------- PAGE HEAD (kategori, search, tentang) ---------- */
+.mw-page-head {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.mw-page-head h1 {
+  font-size: 26px;
+  margin: 12px 0 8px;
+  letter-spacing: -0.02em;
+}
+.mw-page-head p {
+  color: var(--mw-text-soft);
+  margin: 0;
 }
 
 /* ---------- GRID ---------- */
@@ -241,6 +293,29 @@
   flex-direction: column;
   gap: 6px;
 }
+.mw-footer__social {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.mw-footer__social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #1a1a1a;
+  color: #f1efe9;
+  transition: all .2s;
+}
+.mw-footer__social a:hover {
+  background: var(--mw-accent);
+  color: #fff;
+  transform: translateY(-2px);
+}
+.mw-footer__social svg { width: 18px; height: 18px; }
 
 /* ---------- ARTICLE ---------- */
 .mw-article {
@@ -284,7 +359,16 @@
   .mw-carousel > * { flex: 0 0 48%; }
   .mw-hero__media { aspect-ratio: 16 / 10; }
   .mw-hero__title { font-size: 32px; }
-  .mw-section--soft { padding: 32px 0; }
+
+  .mw-section {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+  .mw-section--soft {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
   .mw-footer__bottom {
     flex-direction: row;
     justify-content: space-between;
@@ -342,8 +426,28 @@
   .mw-grid--4 { grid-template-columns: repeat(4, 1fr); }
   .mw-carousel > * { flex: 0 0 32%; }
   .mw-footer__grid { grid-template-columns: 2fr 1fr 1fr; gap: 48px; }
-  .mw-section { padding: 48px 0; }
-  .mw-section--soft { padding: 44px 0; margin: 32px 0; }
+
+  .mw-section {
+    padding-top: 48px;
+    padding-bottom: 48px;
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+  .mw-section--soft {
+    padding-top: 44px;
+    padding-bottom: 44px;
+    padding-left: 32px;
+    padding-right: 32px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+  }
+
+  .mw-page-head {
+    padding-top: 36px;
+    padding-bottom: 24px;
+  }
+  .mw-page-head h1 { font-size: 34px; }
+
   .mw-article { padding: 40px 0 64px; }
   .mw-article__content { font-size: 18px; }
 }
