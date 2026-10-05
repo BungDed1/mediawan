@@ -1,5 +1,7 @@
 /* =====================================================================
    MEDIAWAN - HOME
+   Perhatikan: karena home.js dipanggil dari index.html (root),
+   semua link ke artikel harus pakai prefix "pages/".
    ===================================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -63,7 +65,7 @@ async function loadHero() {
 
 function renderHero(a) {
   const mount = document.getElementById("mw-hero");
-  const url = articleUrl(a.slug);
+  const url = `pages/${articleUrl(a.slug)}`;          // ⬅️ prefix "pages/"
   const img = a.cover_image_url || APP.defaultImage;
   const category = a.mw_categories?.name || "";
   const categorySlug = a.mw_categories?.slug || "";
@@ -76,7 +78,7 @@ function renderHero(a) {
     <div>
       ${category
         ? `<a href="pages/category.html?slug=${encodeURIComponent(categorySlug)}"
-              class="mw-badge" style="margin-bottom:16px; display:inline-block;">
+              class="mw-badge" style="margin-bottom:12px; display:inline-block;">
              ${escapeHtml(category)}
            </a>`
         : ""}
@@ -84,7 +86,7 @@ function renderHero(a) {
         <a href="${url}">${escapeHtml(a.title)}</a>
       </h1>
       ${a.excerpt ? `<p class="mw-hero__excerpt">${escapeHtml(a.excerpt)}</p>` : ""}
-      <div class="mw-card__meta" style="margin-top:20px;">
+      <div class="mw-card__meta" style="margin-top:16px;">
         <span>${escapeHtml(date)}</span>
       </div>
     </div>
@@ -118,7 +120,7 @@ async function loadLatest() {
     }
 
     mount.innerHTML = data
-      .map((a) => articleCardHTML(a, { prefix: "" }))
+      .map((a) => articleCardHTML(a, { prefix: "pages/" }))   // ⬅️ prefix
       .join("");
   } catch (err) {
     console.error("[home] latest error:", err);
@@ -176,13 +178,13 @@ async function loadFacts() {
         return;
       }
       mount.innerHTML = fallback.data
-        .map((a) => `<div role="listitem">${articleCardHTML(a, { compact: true })}</div>`)
+        .map((a) => `<div role="listitem">${articleCardHTML(a, { compact: true, prefix: "pages/" })}</div>`)
         .join("");
       return;
     }
 
     mount.innerHTML = data
-      .map((a) => `<div role="listitem">${articleCardHTML(a, { compact: true })}</div>`)
+      .map((a) => `<div role="listitem">${articleCardHTML(a, { compact: true, prefix: "pages/" })}</div>`)
       .join("");
   } catch (err) {
     console.error("[home] facts error:", err);
@@ -217,7 +219,7 @@ async function loadPopular() {
     }
 
     mount.innerHTML = data
-      .map((a, i) => popularItemHTML(a, i, ""))
+      .map((a, i) => popularItemHTML(a, i, "pages/"))   // ⬅️ prefix
       .join("");
   } catch (err) {
     console.error("[home] popular error:", err);

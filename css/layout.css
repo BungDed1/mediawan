@@ -1,18 +1,6 @@
 /* =====================================================================
-   MEDIAWAN - LAYOUT (v5 — anti mepet)
-   Prinsip:
-   1. .mw-container = padding horizontal + max-width (untuk konten di luar section)
-   2. .mw-section    = padding horizontal + vertikal (biar tidak bergantung container)
-   3. Jangan pernah pakai "mw-container mw-section" bersamaan
+   MEDIAWAN - LAYOUT (v7 — semua sampul 16:9)
    ===================================================================== */
-
-/* ---------- RESET BOX MODEL UNTUK SEMUA ELEMEN LAYOUT ---------- */
-.mw-container,
-.mw-section,
-.mw-header__inner,
-.mw-footer > .mw-container {
-  box-sizing: border-box;
-}
 
 /* ---------- CONTAINER ---------- */
 .mw-container {
@@ -20,12 +8,12 @@
   max-width: 1180px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 16px;
+  padding-right: 16px;
+  box-sizing: border-box;
 }
-
 @media (min-width: 640px) {
-  .mw-container { padding-left: 28px; padding-right: 28px; }
+  .mw-container { padding-left: 24px; padding-right: 24px; }
 }
 @media (min-width: 900px) {
   .mw-container { padding-left: 32px; padding-right: 32px; }
@@ -45,10 +33,10 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  height: 64px;
+  height: 60px;
 }
 .mw-header__logo { flex-shrink: 0; display: flex; align-items: center; }
-.mw-header__logo .mw-logo { font-size: 22px; }
+.mw-header__logo .mw-logo { font-size: 20px; }
 .mw-header__nav { display: none; }
 .mw-header__search { display: none; margin-left: auto; }
 
@@ -57,8 +45,8 @@
   flex-direction: column;
   justify-content: center;
   gap: 5px;
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   background: transparent;
   border: none;
   padding: 8px;
@@ -129,25 +117,37 @@
 }
 .mw-backdrop.is-open { opacity: 1; pointer-events: auto; }
 
-/* ---------- HERO ---------- */
+/* =====================================================================
+   HERO BERANDA — 16:9 juga
+   ===================================================================== */
 .mw-hero {
   display: grid;
+  grid-template-columns: 1fr;
   gap: 20px;
-  padding: 20px 0 28px;
+  padding: 20px 0 24px;
 }
+
 .mw-hero__media {
   border-radius: 14px;
   overflow: hidden;
   background: var(--mw-bg-muted);
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;      /* ⬅️ dari 4/3 ke 16/9 */
+  display: block;
+  width: 100%;
+}
+.mw-hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
 }
-.mw-hero__media img { width: 100%; height: 100%; object-fit: cover; }
+
 .mw-hero__title {
-  font-size: 26px;
+  font-size: 24px;
   margin: 12px 0;
   letter-spacing: -0.02em;
-  line-height: 1.2;
+  line-height: 1.25;
+  word-break: break-word;
 }
 .mw-hero__title a:hover { color: var(--mw-accent); }
 .mw-hero__excerpt {
@@ -157,35 +157,39 @@
   margin: 0;
 }
 
-/* =====================================================================
-   SECTION — DI SINI KUNCI ANTI MEPET
-   Section selalu punya padding horizontal. Konten di dalam section
-   tetap dibungkus .mw-container supaya sejajar dengan header/hero.
-   ===================================================================== */
-
-.mw-section {
-  padding-top: 28px;
-  padding-bottom: 28px;
-  padding-left: 20px;   /* ⬅️ KUNCI: jangan 0 */
-  padding-right: 20px;  /* ⬅️ KUNCI: jangan 0 */
+@media (min-width: 900px) {
+  .mw-hero {
+    grid-template-columns: 1.05fr 1fr;
+    align-items: center;
+    gap: 48px;
+    padding: 48px 0 56px;
+  }
+  .mw-hero__media { aspect-ratio: 16 / 9; }   /* desktop juga 16:9 */
+  .mw-hero__title { font-size: 42px; line-height: 1.15; }
+  .mw-hero__excerpt { font-size: 17px; }
 }
 
-/* Di dalam section, container tidak perlu menambah padding lagi */
+/* =====================================================================
+   SECTION
+   ===================================================================== */
+.mw-section {
+  padding-top: 24px;
+  padding-bottom: 24px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
 .mw-section > .mw-container {
   padding-left: 0;
   padding-right: 0;
 }
-
-/* Kalau ada section yang langsung pakai .mw-container di dalamnya
-   (tanpa wrapper .mw-section), tetap aman karena container punya padding. */
 
 .mw-section--soft {
   background: var(--mw-bg-soft);
   border-radius: 16px;
   padding-top: 24px;
   padding-bottom: 24px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 16px;
+  padding-right: 16px;
   margin-top: 20px;
   margin-bottom: 20px;
 }
@@ -204,7 +208,7 @@
   border-bottom: 1px solid var(--mw-border);
 }
 .mw-section__title {
-  font-size: 22px;
+  font-size: 20px;
   margin: 0;
   letter-spacing: -0.01em;
 }
@@ -215,25 +219,20 @@
   white-space: nowrap;
 }
 
-/* ---------- PAGE HEAD (kategori, search, tentang) ---------- */
-.mw-page-head {
-  padding-top: 20px;
-  padding-bottom: 20px;
+@media (min-width: 640px) {
+  .mw-section { padding-left: 24px; padding-right: 24px; }
+  .mw-section--soft { padding-left: 24px; padding-right: 24px; }
 }
-.mw-page-head h1 {
-  font-size: 26px;
-  margin: 12px 0 8px;
-  letter-spacing: -0.02em;
-}
-.mw-page-head p {
-  color: var(--mw-text-soft);
-  margin: 0;
+@media (min-width: 900px) {
+  .mw-section { padding-top: 48px; padding-bottom: 48px; padding-left: 32px; padding-right: 32px; }
+  .mw-section--soft { padding-top: 44px; padding-bottom: 44px; padding-left: 32px; padding-right: 32px; margin: 32px 0; }
+  .mw-section__title { font-size: 22px; }
 }
 
 /* ---------- GRID ---------- */
 .mw-grid {
   display: grid;
-  gap: 24px;
+  gap: 20px;
   grid-template-columns: 1fr;
 }
 .mw-grid--2 { grid-template-columns: 1fr; }
@@ -243,15 +242,14 @@
 /* ---------- CAROUSEL ---------- */
 .mw-carousel {
   display: flex;
-  gap: 14px;
+  gap: 12px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding: 4px 4px 16px;
-  margin: 0 -4px;
+  padding: 4px 0 12px;
   -webkit-overflow-scrolling: touch;
 }
 .mw-carousel > * {
-  flex: 0 0 82%;
+  flex: 0 0 78%;
   scroll-snap-align: start;
 }
 
@@ -259,14 +257,14 @@
 .mw-footer {
   background: var(--mw-black);
   color: #f1efe9;
-  padding: 48px 0 24px;
-  margin-top: 56px;
+  padding: 40px 0 20px;
+  margin-top: 48px;
 }
 .mw-footer a { color: #f1efe9; }
 .mw-footer a:hover { color: var(--mw-accent); }
 .mw-footer__grid {
   display: grid;
-  gap: 32px;
+  gap: 28px;
   grid-template-columns: 1fr;
 }
 .mw-footer__title {
@@ -284,7 +282,7 @@
   font-size: 14px;
 }
 .mw-footer__bottom {
-  margin-top: 32px;
+  margin-top: 28px;
   padding-top: 20px;
   border-top: 1px solid #2a2a2a;
   font-size: 12px;
@@ -317,58 +315,151 @@
 }
 .mw-footer__social svg { width: 18px; height: 18px; }
 
-/* ---------- ARTICLE ---------- */
+/* =====================================================================
+   ARTIKEL
+   ===================================================================== */
 .mw-article {
-  padding: 24px 0 40px;
-  max-width: 760px;
+  padding: 12px 0 32px;
+  max-width: 720px;
   margin: 0 auto;
 }
+
+.mw-article .mw-breadcrumb {
+  margin: 0 0 12px;
+  font-size: 12px;
+}
+
+.mw-article h1 {
+  font-size: 22px;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  margin: 8px 0 12px;
+  word-break: break-word;
+}
+
+.mw-article .mw-card__meta {
+  font-size: 12px;
+  color: var(--mw-text-muted);
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+}
+
 .mw-article__cover {
-  border-radius: 14px;
+  border-radius: 12px;
   overflow: hidden;
-  margin: 20px 0;
-  aspect-ratio: 16 / 9;
+  margin: 16px 0 20px;
+  aspect-ratio: 16 / 9;      /* tetap 16:9 */
   background: var(--mw-bg-muted);
 }
-.mw-article__cover img { width: 100%; height: 100%; object-fit: cover; }
+.mw-article__cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
 .mw-article__content {
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.75;
   color: var(--mw-text);
 }
-.mw-article__content p { color: var(--mw-text); }
+.mw-article__content p {
+  color: var(--mw-text);
+  margin-bottom: 16px;
+}
+.mw-article__content h2 {
+  font-size: 19px;
+  margin: 28px 0 12px;
+  letter-spacing: -0.01em;
+}
+.mw-article__content h3 {
+  font-size: 17px;
+  margin: 24px 0 10px;
+}
+.mw-article__content ul,
+.mw-article__content ol {
+  padding-left: 22px;
+  margin-bottom: 16px;
+}
+.mw-article__content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin: 16px 0;
+}
+
+.mw-source {
+  margin-top: 24px;
+  padding: 14px 16px;
+  background: var(--mw-bg-soft);
+  border-left: 3px solid var(--mw-accent);
+  border-radius: 10px;
+  font-size: 13px;
+}
+.mw-source__label {
+  font-weight: 700;
+  color: var(--mw-text);
+  margin-bottom: 4px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.mw-source a { color: var(--mw-accent); word-break: break-all; }
+
+@media (min-width: 640px) {
+  .mw-article { padding: 20px 0 40px; }
+  .mw-article h1 { font-size: 28px; line-height: 1.2; margin: 10px 0 14px; }
+  .mw-article .mw-card__meta { font-size: 13px; }
+  .mw-article__content { font-size: 17px; }
+  .mw-article__cover { margin: 20px 0 28px; }
+}
+
+@media (min-width: 900px) {
+  .mw-article { padding: 32px 0 56px; }
+  .mw-article h1 { font-size: 36px; line-height: 1.15; margin: 12px 0 16px; }
+  .mw-article__content { font-size: 18px; }
+  .mw-article__cover { margin: 24px 0 32px; }
+}
+
+/* ---------- PAGE HEAD ---------- */
+.mw-page-head {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+.mw-page-head h1 {
+  font-size: 24px;
+  margin: 10px 0 6px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.mw-page-head p {
+  color: var(--mw-text-soft);
+  margin: 0;
+  font-size: 14px;
+}
+@media (min-width: 640px) {
+  .mw-page-head { padding-top: 24px; padding-bottom: 20px; }
+  .mw-page-head h1 { font-size: 30px; }
+}
+@media (min-width: 900px) {
+  .mw-page-head { padding-top: 32px; padding-bottom: 24px; }
+  .mw-page-head h1 { font-size: 36px; }
+}
 
 /* ---------- PAGINATION ---------- */
 .mw-pagination {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   justify-content: center;
-  margin-top: 32px;
+  margin-top: 28px;
   flex-wrap: wrap;
 }
 
 /* =====================================================================
-   BREAKPOINTS
+   BREAKPOINTS GRID
    ===================================================================== */
-
 @media (min-width: 640px) {
-  .mw-grid { gap: 24px; }
+  .mw-grid { gap: 20px; }
   .mw-grid--2 { grid-template-columns: repeat(2, 1fr); }
   .mw-grid--3 { grid-template-columns: repeat(2, 1fr); }
   .mw-grid--4 { grid-template-columns: repeat(2, 1fr); }
-  .mw-carousel > * { flex: 0 0 48%; }
-  .mw-hero__media { aspect-ratio: 16 / 10; }
-  .mw-hero__title { font-size: 32px; }
-
-  .mw-section {
-    padding-left: 28px;
-    padding-right: 28px;
-  }
-  .mw-section--soft {
-    padding-left: 28px;
-    padding-right: 28px;
-  }
-
+  .mw-carousel > * { flex: 0 0 46%; }
   .mw-footer__bottom {
     flex-direction: row;
     justify-content: space-between;
@@ -378,6 +469,7 @@
 
 @media (min-width: 900px) {
   .mw-header__inner { height: 76px; gap: 16px; }
+  .mw-header__logo .mw-logo { font-size: 24px; }
   .mw-header__nav {
     display: flex;
     align-items: center;
@@ -412,44 +504,10 @@
   .mw-header__search { display: flex; margin-left: auto; }
   .mw-header__burger { display: none; }
 
-  .mw-hero {
-    grid-template-columns: 1.05fr 1fr;
-    align-items: center;
-    gap: 48px;
-    padding: 48px 0 56px;
-  }
-  .mw-hero__media { aspect-ratio: 4 / 3; }
-  .mw-hero__title { font-size: 44px; }
-  .mw-hero__excerpt { font-size: 17px; }
-
   .mw-grid--3 { grid-template-columns: repeat(3, 1fr); }
   .mw-grid--4 { grid-template-columns: repeat(4, 1fr); }
-  .mw-carousel > * { flex: 0 0 32%; }
+  .mw-carousel > * { flex: 0 0 30%; }
   .mw-footer__grid { grid-template-columns: 2fr 1fr 1fr; gap: 48px; }
-
-  .mw-section {
-    padding-top: 48px;
-    padding-bottom: 48px;
-    padding-left: 32px;
-    padding-right: 32px;
-  }
-  .mw-section--soft {
-    padding-top: 44px;
-    padding-bottom: 44px;
-    padding-left: 32px;
-    padding-right: 32px;
-    margin-top: 32px;
-    margin-bottom: 32px;
-  }
-
-  .mw-page-head {
-    padding-top: 36px;
-    padding-bottom: 24px;
-  }
-  .mw-page-head h1 { font-size: 34px; }
-
-  .mw-article { padding: 40px 0 64px; }
-  .mw-article__content { font-size: 18px; }
 }
 
 @media (min-width: 1200px) {

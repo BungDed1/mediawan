@@ -68,7 +68,6 @@ function renderArticle(a) {
   const date = formatDateId(a.published_at || a.created_at);
   const img = a.cover_image_url || "../" + APP.defaultImage;
 
-  // Susun HTML dengan escape (cegah XSS)
   mount.innerHTML = `
     <nav class="mw-breadcrumb" aria-label="Breadcrumb">
       <a href="../index.html">Beranda</a>
@@ -83,9 +82,9 @@ function renderArticle(a) {
             class="mw-badge">${escapeHtml(category)}</a>`
       : ""}
 
-    <h1 style="margin-top:12px;">${escapeHtml(a.title)}</h1>
+    <h1>${escapeHtml(a.title)}</h1>
 
-    <div class="mw-card__meta" style="margin-bottom:8px;">
+    <div class="mw-card__meta">
       ${a.author ? `<span>Oleh <strong>${escapeHtml(a.author)}</strong></span><span>·</span>` : ""}
       <span>${escapeHtml(date)}</span>
       <span>·</span>
@@ -115,19 +114,9 @@ function renderArticle(a) {
            </div>
          </div>`
       : ""}
-
-    <div class="mw-share" id="mw-share">
-      <button class="mw-share__btn" type="button" data-share="whatsapp">WhatsApp</button>
-      <button class="mw-share__btn" type="button" data-share="x">X / Twitter</button>
-      <button class="mw-share__btn" type="button" data-share="copy">Salin Link</button>
-    </div>
   `;
 
-  // Isi meta SEO & OG
   updateMeta(a);
-
-  // Bind tombol share
-  bindShare(a);
 }
 
 /* -------------------- META SEO & OG -------------------- */

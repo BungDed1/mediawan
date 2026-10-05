@@ -33,11 +33,10 @@
 
   <div id="mw-header"></div>
 
-  <main id="mw-main">
-
-    <!-- Artikel utama -->
-    <article class="mw-container mw-article" id="mw-article" aria-live="polite">
-      <!-- Skeleton awal (ditimpa oleh article.js setelah data dimuat) -->
+ <main id="mw-main">
+  <div class="mw-container">
+    <article class="mw-article" id="mw-article" aria-live="polite">
+      <!-- skeleton awal -->
       <div class="mw-skeleton mw-skeleton--title" style="width:30%"></div>
       <div class="mw-skeleton mw-skeleton--title" style="width:90%;height:42px"></div>
       <div class="mw-skeleton mw-skeleton--title" style="width:70%;height:42px"></div>
@@ -47,18 +46,17 @@
       <div class="mw-skeleton mw-skeleton--text"></div>
       <div class="mw-skeleton mw-skeleton--text" style="width:80%"></div>
     </article>
+  </div>
 
-    <!-- Artikel terkait -->
-    <section class="mw-container mw-section" aria-labelledby="mw-related-title"
-             id="mw-related-section" hidden>
+  <section class="mw-section" id="mw-related-section" hidden>
+    <div class="mw-container">
       <div class="mw-section__head">
-        <h2 class="mw-section__title" id="mw-related-title">Artikel Terkait</h2>
+        <h2 class="mw-section__title">Artikel Terkait</h2>
       </div>
       <div id="mw-related" class="mw-grid mw-grid--3"></div>
-    </section>
-
-  </main>
-
+    </div>
+  </section>
+</main>
   <div id="mw-footer"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
